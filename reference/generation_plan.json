@@ -1,0 +1,383 @@
+{
+  "source_catalog": "reference/canonical_effects.json",
+  "strategy": "dedup_by_supertype",
+  "n_supertypes": 14,
+  "picks": [
+    {
+      "supertype_key": [
+        "Neon Edge",
+        "high",
+        "dark",
+        "colorful",
+        "dark"
+      ],
+      "representative_cluster_id": 13,
+      "representative_cluster_size": 63,
+      "supertype_total_frames": 455,
+      "member_cluster_ids": [
+        6,
+        8,
+        11,
+        13,
+        15,
+        27,
+        28,
+        31,
+        38,
+        39
+      ],
+      "member_count": 10,
+      "dominant_hex": "#86475b",
+      "audio_mapping": "edge_density → bass; hue → energy",
+      "timestamps_first5": [
+        252,
+        273,
+        330,
+        354,
+        588
+      ]
+    },
+    {
+      "supertype_key": [
+        "Neon Edge",
+        "high",
+        "dark",
+        "colorful",
+        "verydark"
+      ],
+      "representative_cluster_id": 32,
+      "representative_cluster_size": 58,
+      "supertype_total_frames": 290,
+      "member_cluster_ids": [
+        4,
+        16,
+        19,
+        22,
+        32,
+        36
+      ],
+      "member_count": 6,
+      "dominant_hex": "#050502",
+      "audio_mapping": "edge_density → bass; hue → energy",
+      "timestamps_first5": [
+        93,
+        96,
+        114,
+        213,
+        312
+      ]
+    },
+    {
+      "supertype_key": [
+        "Complex Scene",
+        "high",
+        "medium",
+        "colorful",
+        "mid"
+      ],
+      "representative_cluster_id": 7,
+      "representative_cluster_size": 56,
+      "supertype_total_frames": 254,
+      "member_cluster_ids": [
+        7,
+        10,
+        12,
+        29,
+        37
+      ],
+      "member_count": 5,
+      "dominant_hex": "#bc8891",
+      "audio_mapping": "energy → overall; onset → burst",
+      "timestamps_first5": [
+        24,
+        48,
+        111,
+        366,
+        570
+      ]
+    },
+    {
+      "supertype_key": [
+        "Neon Edge",
+        "high",
+        "dark",
+        "colorful",
+        "light"
+      ],
+      "representative_cluster_id": 21,
+      "representative_cluster_size": 74,
+      "supertype_total_frames": 226,
+      "member_cluster_ids": [
+        5,
+        14,
+        21,
+        34
+      ],
+      "member_count": 4,
+      "dominant_hex": "#e2d6df",
+      "audio_mapping": "edge_density → bass; hue → energy",
+      "timestamps_first5": [
+        18,
+        81,
+        165,
+        306,
+        378
+      ]
+    },
+    {
+      "supertype_key": [
+        "Neon Edge",
+        "high",
+        "dark",
+        "colorful",
+        "mid"
+      ],
+      "representative_cluster_id": 30,
+      "representative_cluster_size": 59,
+      "supertype_total_frames": 155,
+      "member_cluster_ids": [
+        25,
+        26,
+        30
+      ],
+      "member_count": 3,
+      "dominant_hex": "#a17e8c",
+      "audio_mapping": "edge_density → bass; hue → energy",
+      "timestamps_first5": [
+        240,
+        249,
+        276,
+        336,
+        423
+      ]
+    },
+    {
+      "supertype_key": [
+        "Complex Scene",
+        "high",
+        "medium",
+        "colorful",
+        "light"
+      ],
+      "representative_cluster_id": 24,
+      "representative_cluster_size": 59,
+      "supertype_total_frames": 110,
+      "member_cluster_ids": [
+        3,
+        24
+      ],
+      "member_count": 2,
+      "dominant_hex": "#eabac4",
+      "audio_mapping": "energy → overall; onset → burst",
+      "timestamps_first5": [
+        99,
+        177,
+        192,
+        321,
+        573
+      ]
+    },
+    {
+      "supertype_key": [
+        "Complex Scene",
+        "high",
+        "medium",
+        "colorful",
+        "verydark"
+      ],
+      "representative_cluster_id": 9,
+      "representative_cluster_size": 55,
+      "supertype_total_frames": 101,
+      "member_cluster_ids": [
+        9,
+        18
+      ],
+      "member_count": 2,
+      "dominant_hex": "#0d0807",
+      "audio_mapping": "energy → overall; onset → burst",
+      "timestamps_first5": [
+        126,
+        324,
+        621,
+        681,
+        696
+      ]
+    },
+    {
+      "supertype_key": [
+        "Energetic Edge Burst",
+        "high",
+        "medium",
+        "colorful",
+        "mid"
+      ],
+      "representative_cluster_id": 20,
+      "representative_cluster_size": 33,
+      "supertype_total_frames": 64,
+      "member_cluster_ids": [
+        1,
+        20
+      ],
+      "member_count": 2,
+      "dominant_hex": "#df8bd3",
+      "audio_mapping": "edge_density → onset; brightness → energy",
+      "timestamps_first5": [
+        1113,
+        1155,
+        1200,
+        1296,
+        1530
+      ]
+    },
+    {
+      "supertype_key": [
+        "Dark Atmospheric",
+        "medium",
+        "dark",
+        "colorful",
+        "mid"
+      ],
+      "representative_cluster_id": 17,
+      "representative_cluster_size": 55,
+      "supertype_total_frames": 55,
+      "member_cluster_ids": [
+        17
+      ],
+      "member_count": 1,
+      "dominant_hex": "#9b6e81",
+      "audio_mapping": "saturation → sub_bass; brightness → beat",
+      "timestamps_first5": [
+        3,
+        30,
+        75,
+        186,
+        237
+      ]
+    },
+    {
+      "supertype_key": [
+        "Complex Scene",
+        "high",
+        "medium",
+        "colorful",
+        "dark"
+      ],
+      "representative_cluster_id": 2,
+      "representative_cluster_size": 51,
+      "supertype_total_frames": 51,
+      "member_cluster_ids": [
+        2
+      ],
+      "member_count": 1,
+      "dominant_hex": "#312447",
+      "audio_mapping": "energy → overall; onset → burst",
+      "timestamps_first5": [
+        159,
+        207,
+        210,
+        351,
+        639
+      ]
+    },
+    {
+      "supertype_key": [
+        "Dark Atmospheric",
+        "medium",
+        "dark",
+        "colorful",
+        "light"
+      ],
+      "representative_cluster_id": 33,
+      "representative_cluster_size": 38,
+      "supertype_total_frames": 38,
+      "member_cluster_ids": [
+        33
+      ],
+      "member_count": 1,
+      "dominant_hex": "#e8e7e8",
+      "audio_mapping": "saturation → sub_bass; brightness → beat",
+      "timestamps_first5": [
+        333,
+        402,
+        411,
+        498,
+        525
+      ]
+    },
+    {
+      "supertype_key": [
+        "Energetic Edge Burst",
+        "high",
+        "medium",
+        "colorful",
+        "dark"
+      ],
+      "representative_cluster_id": 35,
+      "representative_cluster_size": 35,
+      "supertype_total_frames": 35,
+      "member_cluster_ids": [
+        35
+      ],
+      "member_count": 1,
+      "dominant_hex": "#581a30",
+      "audio_mapping": "edge_density → onset; brightness → energy",
+      "timestamps_first5": [
+        147,
+        2088,
+        2169,
+        2313,
+        2367
+      ]
+    },
+    {
+      "supertype_key": [
+        "Washed Out / Overexposed",
+        "medium",
+        "medium",
+        "neutral",
+        "light"
+      ],
+      "representative_cluster_id": 23,
+      "representative_cluster_size": 26,
+      "supertype_total_frames": 26,
+      "member_cluster_ids": [
+        23
+      ],
+      "member_count": 1,
+      "dominant_hex": "#edcdd3",
+      "audio_mapping": "brightness → energy; edge → bass",
+      "timestamps_first5": [
+        57,
+        60,
+        108,
+        453,
+        468
+      ]
+    },
+    {
+      "supertype_key": [
+        "Complex Scene",
+        "medium",
+        "dark",
+        "neutral",
+        "dark"
+      ],
+      "representative_cluster_id": 0,
+      "representative_cluster_size": 11,
+      "supertype_total_frames": 11,
+      "member_cluster_ids": [
+        0
+      ],
+      "member_count": 1,
+      "dominant_hex": "#4a4a63",
+      "audio_mapping": "energy → overall; onset → burst",
+      "timestamps_first5": [
+        0,
+        1665,
+        2661,
+        2694,
+        3501
+      ]
+    }
+  ]
+}

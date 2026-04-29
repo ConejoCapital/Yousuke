@@ -1,0 +1,32 @@
+# ¥ØUSUK€ Visual Extender — Python dependencies
+# Install: pip install -r requirements.txt
+
+# Core vision
+opencv-python>=4.9.0
+numpy>=1.26.0
+
+# Audio analysis
+librosa>=0.10.0
+sounddevice>=0.4.6
+
+# CJK text rendering (kanji float effect)
+Pillow>=10.0.0
+
+# Body segmentation (particle confetti effect — optional)
+mediapipe>=0.10.0
+
+# GPU rendering (optional, for enhanced performance)
+moderngl>=5.9.0
+pygame>=2.5.0
+
+# Video download (for download_video.py)
+yt-dlp>=2024.1.0
+
+# AI effect generation
+anthropic>=0.30.0
+
+# Video frame analysis (analyze_video.py)
+scikit-learn>=1.4.0
+
+# Progress bars (analyze_video.py, generate_effect.py)
+tqdm>=4.66.0

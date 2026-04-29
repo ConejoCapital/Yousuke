@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Large media (exceeds GitHub 100MB limit)
+reference/video.mp4
+reference/video.info.json
+reports/reel.mp4
+
+# Legacy/backup TouchDesigner files
+AIPSummitYousuke.6.toe
+AIPSummitYousuke.toe
+UpdatednewFX*.toe
+visuals.4.toe
+visuals.toe
+Backup/
+Launch Showcase.command
+
+# TD temp files
+*.toe.dir/
+*.toe.bak
+
+# Reports (binary artifacts)
+reports/*.jpg
+reports/perf_baseline.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Claude
+.claude/
