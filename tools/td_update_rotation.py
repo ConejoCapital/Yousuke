@@ -151,12 +151,18 @@ def whileOn(channel, sampleIndex, val, prev):
             pass
 
     if should_switch:
-        # Random selection: pick any effect except the current one
-        candidates = [i for i in range(total_effects) if i != effect_idx]
-        new_idx = random.choice(candidates)
+        # Pick up to 3 different effects for the 3 layers
+        layer2 = op('/project1/layer2_router')
+        layer3 = op('/project1/layer3_router')
+        indices = random.sample(range(total_effects), min(3, total_effects))
 
-        ae.par.value0 = new_idx
-        router.par.index = new_idx
+        ae.par.value0 = indices[0]
+        router.par.index = indices[0]
+        if layer2:
+            layer2.par.index = indices[1] if len(indices) > 1 else indices[0]
+        if layer3:
+            layer3.par.index = indices[2] if len(indices) > 2 else indices[0]
+
         storage['last_switch_time'] = now
         storage['beat_count'] = 0
 
@@ -245,10 +251,10 @@ print(f'Storage initialized at t={absTime.seconds:.1f}')
 ar = op('/project1/auto_rotate')
 print(f'whileon={ar.par.whileon}')
 print(f'active={ar.par.active}')
-has_random = 'random.choice' in ar.text
+has_random = 'random.sample' in ar.text
 has_1_5 = 'SWITCH_INTERVAL = 1.5' in ar.text
 has_5_beat = 'BEAT_SWITCH_THRESHOLD = 5' in ar.text
-print(f'has random.choice: {has_random}')
+print(f'has random.sample: {has_random}')
 print(f'has 1.5s interval: {has_1_5}')
 print(f'has 5-beat threshold: {has_5_beat}')
 """)
@@ -258,8 +264,8 @@ print(f'has 5-beat threshold: {has_5_beat}')
     td_exec("""
 ae = op('/project1/active_effect')
 if ae is not None:
-    ae['auto_rotate'] = 1
-    print(f'auto_rotate enabled: {ae["auto_rotate"]}')
+    ae.par.value1 = 1
+    print('auto_rotate enabled: par.value1 = ' + str(ae.par.value1.eval()))
 """)
 
     print(f"\n{'=' * 60}")

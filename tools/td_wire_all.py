@@ -182,10 +182,10 @@ print(f'\\nTotal: {connected} inputs connected')
     print(result)
 
     # Update active_effect range info
-    td_exec(f"""
+    td_exec("""
 ae = op('/project1/active_effect')
 if ae is not None:
-    print(f'active_effect: idx={{ae["effect_idx"]}}, auto={{ae["auto_rotate"]}}')
+    print('active_effect: idx=' + str(ae.par.value0.eval()) + ', auto=' + str(ae.par.value1.eval()))
 """)
 
     print("=" * 60)
