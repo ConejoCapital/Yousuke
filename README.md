@@ -92,7 +92,7 @@ through heavy bloom and chromatic aberration.
 
 The operator took screenshots of specific frames from the set that captured
 the desired aesthetic intent. These screenshots were fed directly to Claude
-Opus 4.6 as vision input via the Hermes harness. This proved to dramatically
+Opus 4.7 as vision input via the Hermes harness. This proved to dramatically
 improve output quality compared to relying solely on algorithmic clustering.
 
 The insight: the human eye catches aesthetic intent — mood, atmosphere,
@@ -687,8 +687,8 @@ Yousuke/
 │   ├── test_smoke.py                  # 12 smoke tests
 │   ├── test_audio_features.py         # 11 audio extraction tests
 │   ├── test_plugin_loader.py          # 7 plugin loader tests
-│   ├── test_effects_render.py         # 40 effect rendering tests
-│   ├── test_perf.py                   # 9 performance tests
+│   ├── test_effects_render.py         # 155 effect rendering tests
+│   ├── test_perf.py                   # 32 performance tests
 │   ├── test_analyze_video.py          # 7 video analysis tests
 │   └── test_generate_effect.py        # 10 generation tests
 │

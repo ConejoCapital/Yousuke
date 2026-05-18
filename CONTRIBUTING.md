@@ -132,7 +132,7 @@ shape match) with up to 2 retry attempts on failure.
 ## Running the Test Suite
 
 ```bash
-# Run all 96 tests
+# Run all 234 tests
 pytest
 
 # Run a specific test file

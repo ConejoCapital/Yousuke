@@ -19,7 +19,8 @@ pixel shaders through a 3-layer additive compositing system, producing
 
 ## Key Numbers
 
-- 43 GLSL shaders (21 original + 21 mutations + 1 canon shard)
+- 43 GLSL shaders in TouchDesigner (21 original + 21 mutations + 1 canon shard)
+- 31 Python effects in standalone (8 hand-coded + 21 AI-generated + 2 canonical)
 - 7 audio parameters: rms, sub_bass, bass, mids, highs, beat, onset
 - 3-layer additive compositing (commutative: C(43,3) = 12,341 combinations)
 - ~6.4 x 10^37 total visual states (~2.5 quintillion universe lifetimes)
@@ -71,9 +72,9 @@ python generate_effect.py --describe "description of desired visual effect"
 | `PROCESS.md` | Narrative of the AI-driven build process |
 | `CONTRIBUTING.md` | How to extend the system |
 | `standalone/visuals.py` | Python standalone visual engine |
-| `effects/` | Python effect plugins (8 hand-coded) |
+| `effects/` | 8 hand-coded Python effect plugins |
 | `effects/ai_generated/` | 21 AI-generated Python effects |
-| `effects/canonical/` | 2 vision-verified canonical effects |
+| `effects/canonical/` | 2 vision-verified canonical Python effects |
 | `tools/` | TD build scripts (see `tools/README.md`) |
 | `tools/td_mcp.py` | MCP bridge helper — `from tools.td_mcp import td_call` |
 | `reference/` | Canonical catalog, cluster frames, generation plan |
@@ -96,8 +97,13 @@ Files in `docs/` with "ARCHIVED" banners describe the earlier 8-effect
 system. They are kept for historical reference. The current system is
 documented in `README.md` and `ARCHITECTURE.md`.
 
+Archived (have banners):
 - `docs/PRODUCT_DOC.md` — Original product spec (pre-expansion)
 - `docs/HERMES_PROMPT.md` — Initial Hermes kickoff prompt
 - `docs/PHASE_D_PLAN.md` — Initial 8-effect TD build plan
 - `docs/SUMMIT_README.md` — April 30 day-of-show runbook
 - `touchdesigner/README_FOR_HERMES.md` — Manual Hermes build prompts
+
+Historical reference (no banners, accurate for their era):
+- `docs/PHASE_B_REPORT.md` — Phase B test report (96 tests at that time)
+- `reference/EFFECTS_CATALOG.md` — Full 43-effect catalog
