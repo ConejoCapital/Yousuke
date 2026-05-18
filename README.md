@@ -15,22 +15,27 @@
 3. [System Architecture](#3-system-architecture)
 4. [The Pipeline in Detail](#4-the-pipeline-in-detail)
 5. [Audio Reactivity & Real-Time Operation](#5-audio-reactivity--real-time-operation)
-6. [Effects Catalog](#6-effects-catalog)
-7. [Usage](#7-usage)
-8. [Repository Structure](#8-repository-structure)
-9. [Technical Requirements](#9-technical-requirements)
-10. [Acknowledgments](#10-acknowledgments)
-11. [License](#11-license)
+6. [The Combinatorial Explosion](#6-the-combinatorial-explosion)
+7. [Effects Catalog](#7-effects-catalog)
+8. [Usage](#8-usage)
+9. [Repository Structure](#9-repository-structure)
+10. [Technical Requirements](#10-technical-requirements)
+11. [Acknowledgments](#11-acknowledgments)
+12. [License](#12-license)
 
 ---
 
 ## 1. Introduction
 
-Yousuke is an audio-reactive live visual system built for the
+Yousuke is a conceptual audio visual art piece conceived for the
 **AI Psychosis Summit NYC** on April 30, 2026. It takes live audio input
 (microphone, DJ interface, or pre-recorded audio file), performs real-time
 spectral feature extraction, and drives a bank of 43 GLSL pixel shaders that
 transform a camera feed into beat-synchronized visual output.
+
+Its 3-layer additive compositing of 43 GLSL effects, driven by 7 real-time
+audio parameters, produces ~6.4 × 10³⁷ possible visual states — roughly
+2.5 quintillion universe lifetimes to exhaust at 60 fps.
 
 The system is delivered on two parallel paths:
 
@@ -360,7 +365,77 @@ The auto-rotate system cycles effects with the following parameters:
 
 ---
 
-## 6. Effects Catalog
+## 6. The Combinatorial Explosion
+
+### The Proof
+
+The 3-layer additive compositing system produces a combinatorial state space
+so vast it becomes practically infinite.
+
+**Discrete combinations.** The auto-rotate system selects 3 effects from 43
+via `random.sample(range(43), 3)`. Since additive compositing is commutative
+(L1 + L2 + L3 = L3 + L1 + L2), the selection is unordered:
+
+> C(43, 3) = 43! / (3! × 40!) = **12,341** unique effect combinations
+
+**Continuous audio state.** Each of the 7 audio parameters (`rms`,
+`sub_bass`, `bass`, `mids`, `highs`, `beat`, `onset`) varies continuously in
+[0, 1]. At a conservative 16-bit discretization (65,536 levels per
+parameter):
+
+> 65,536⁷ ≈ **5.19 × 10³³** possible audio states
+
+**Total instantaneous visual states:**
+
+> 12,341 × 5.19 × 10³³ ≈ **6.4 × 10³⁷**
+
+**Universe comparison.** The observable universe is ~13.8 billion years old.
+At 60 fps, that is ~2.61 × 10¹⁹ frames. To exhaust every state once:
+
+> 6.4 × 10³⁷ / 2.61 × 10¹⁹ ≈ **2.5 × 10¹⁸ universe lifetimes**
+
+That is roughly **2.5 quintillion ages of the universe**.
+
+### What the Conservative Estimate Ignores
+
+The 6.4 × 10³⁷ figure is a lower bound. It excludes:
+
+- **`iTime` (temporal evolution)** — Every shader uses `iTime` as an
+  animation driver. Even with the same 3 effects and the same 7 audio
+  values, the visual output changes continuously over time.
+- **Feedback buffers** — Effects like Feedback Spiral Zoom and Glitch
+  Feedback carry temporal state from previous frames.
+- **Chaos Engine transforms** — The aggressive variant uses 150ms minimum
+  gap, producing ~10⁹⁵ states when temporal evolution is included.
+
+### Switching Behavior
+
+Effect switching is not on a fixed timer. Three independent triggers race,
+and whichever fires first causes a switch:
+
+| Trigger | Condition | Behavior |
+|---------|-----------|----------|
+| Timer | 1.5 seconds elapsed | Time-based fallback |
+| Beat count | 5 beats accumulated | Music-driven switching |
+| Onset energy | onset > 0.2 | Transient gate (0.8s debounce) |
+
+The Chaos Engine variant is more aggressive, with a 150ms minimum gap
+between switches.
+
+### Why This Matters
+
+Every frame of Yousuke output has almost certainly never existed before and
+will never exist again. The system does not cycle through a playlist of
+looks — it occupies a state space so large that exhaustive traversal would
+require 2.5 quintillion universe lifetimes. This was never specified as a
+design goal. It is an emergent property of three architectural decisions:
+43 effects, 3-layer compositing, and 7 continuous audio parameters. The
+AI agents that built this system created a combinatorial explosion they
+cannot comprehend.
+
+---
+
+## 7. Effects Catalog
 
 ### Summary
 
@@ -435,7 +510,7 @@ performance data: [docs/EFFECTS_CATALOG.md](docs/EFFECTS_CATALOG.md)
 
 ---
 
-## 7. Usage
+## 8. Usage
 
 ### Quick Start
 
@@ -544,7 +619,7 @@ python analyze_video.py --video /path/to/set.mp4 --output /path/to/effects.json
 
 ---
 
-## 8. Repository Structure
+## 9. Repository Structure
 
 ```
 Yousuke/
@@ -624,7 +699,7 @@ Yousuke/
 
 ---
 
-## 9. Technical Requirements
+## 10. Technical Requirements
 
 ### Python Environment
 
@@ -660,7 +735,7 @@ pip install -r standalone/requirements.txt
 
 ---
 
-## 10. Acknowledgments
+## 11. Acknowledgments
 
 Built by **Mauricio "Bunny" Trujillo**
 ([@ConejoCapital](https://x.com/ConejoCapital)), cofounder of **Tektonic
@@ -683,7 +758,7 @@ Powered by **Claude Opus 4.7** (Anthropic) for AI effect generation.
 
 ---
 
-## 11. License
+## 12. License
 
 [MIT](LICENSE)
 
