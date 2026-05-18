@@ -79,6 +79,14 @@
 
 ## Effects to DELETE from the existing catalog
 
+> **Implementation note:** The 8 original hand-coded Python effects remain
+> in `effects/` for the Python standalone engine. The canonical analysis
+> informed the GLSL shader generation phase, which produced 43 shaders
+> (21 originals + 21 mutations + 1 canon) that reflect the actual visual
+> grammar. The TouchDesigner production system uses the corrected effects;
+> the Python standalone retains the originals alongside 21 AI-generated
+> and 2 canonical plugins.
+
 These do not exist in the reference video and should be removed or flagged as non-canonical:
 - `kanji_float.py` — no kanji overlays present in ANY sampled frame. Text present is only the ¥ØUSUK€ leetspeak broadcast watermark.
 - `gold_particle_rain.py` — no gold-rain effect found; gold/amber color temperature appears only in dark-atmospheric B-roll as LED reflections, not as particles.

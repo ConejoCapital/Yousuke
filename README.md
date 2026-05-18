@@ -654,12 +654,22 @@ Yousuke/
 │   └── canonical/                     # 2 vision-verified canonical effects
 │
 ├── tools/
+│   ├── README.md                      # Script reference & build order
 │   ├── td_build_effects.py            # Build 21 original GLSL effects via MCP
 │   ├── td_build_mutations.py          # Build 21 mutation GLSL effects via MCP
+│   ├── td_build_chaos.py              # Build Chaos Engine variant
+│   ├── td_build_contour.py            # Build contour effect via MCP
+│   ├── td_build_gen3.py               # Build Gen3 effects via MCP
 │   ├── td_wire_all.py                 # Wire all 43 effects to 3-router topology
+│   ├── td_wire_effects.py             # Wire individual effects
+│   ├── td_wire_contour.py             # Wire contour effect
+│   ├── td_wire_everything.py          # Wire complete network
 │   ├── td_add_prominence.py           # Insert audio-driven levelTOPs
+│   ├── td_add_web_input.py            # Add web input sources
 │   ├── td_update_rotation.py          # Aggressive random 3-layer auto-rotate
+│   ├── td_fix_rotation.py             # Fix rotation parameters
 │   ├── td_mcp.py                      # Minimal MCP bridge helper
+│   ├── chaos_engine_script.py         # Chaos Engine runtime script
 │   ├── render_reel.py                 # Headless reel renderer
 │   ├── live_showcase.py               # Fullscreen live showcase mode
 │   ├── preview_canonical.py           # Canonical effects preview

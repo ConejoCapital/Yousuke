@@ -1,3 +1,8 @@
+> **ARCHIVED** — This was the day-of-show runbook for AI Psychosis Summit
+> NYC on April 30, 2026. It describes the original 8-effect system. The
+> production system was expanded to 43 GLSL effects with 3-layer additive
+> compositing. For current documentation, see [README.md](../README.md).
+
 # ¥ØUSUK€ Visual Extender
 ## AI Psychosis Summit NYC — April 30, 2026
 

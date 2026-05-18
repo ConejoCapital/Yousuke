@@ -1,3 +1,8 @@
+> **ARCHIVED** — This kickoff prompt was used for the initial 8-effect
+> build phase. The production system was built using `tools/td_build_*.py`
+> scripts with the twozero MCP bridge, producing 43 GLSL effects. See
+> [README.md](../README.md) and [tools/README.md](../tools/README.md).
+
 # ¥ØUSUK€ — Hermes Session Kickoff
 
 **Paste this entire message into Hermes to begin building the TouchDesigner .toe network

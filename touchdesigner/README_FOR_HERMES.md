@@ -1,3 +1,8 @@
+> **ARCHIVED** — These manual Hermes prompts were written for the initial
+> 8-effect build. The production 43-effect system was built programmatically
+> using `tools/td_build_effects.py`, `tools/td_build_mutations.py`, and
+> `tools/td_wire_all.py`. See [tools/README.md](../tools/README.md).
+
 # TouchDesigner Network — Instructions for Hermes
 ## ¥ØUSUK€ Visual Extender | AI Psychosis Summit NYC | April 30, 2026
 

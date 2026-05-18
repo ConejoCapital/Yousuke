@@ -1,6 +1,11 @@
+> **ARCHIVED** — This plan described the initial 8-effect TD build.
+> The production system was built with 43 GLSL effects (21 originals +
+> 21 mutations + 1 canon) using `tools/td_build_effects.py` and
+> `tools/td_build_mutations.py`. See [README.md](../README.md).
+
 # Phase D — TouchDesigner Build Plan (executed via twozero MCP)
 
-## Status: AWAITING TD MCP CONNECTION
+## Status: COMPLETED (superseded by 43-effect build)
 
 Prerequisites once you've completed the manual steps in the chat:
 - [ ] TouchDesigner installed (✓ done — `/Applications/TouchDesigner.app`)

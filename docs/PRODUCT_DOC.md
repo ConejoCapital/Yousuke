@@ -1,3 +1,8 @@
+> **ARCHIVED** — This is the original product specification written before
+> the canonical analysis (Phase C) and the expansion from 8 to 43 effects.
+> The current system is documented in [README.md](../README.md). Kept for
+> historical reference.
+
 # ¥ØUSUK€ Visual Extender — Product Document
 **AI Psychosis Summit NYC | April 30, 2026**
 
