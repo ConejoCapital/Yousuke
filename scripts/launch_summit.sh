@@ -16,7 +16,7 @@
 set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 VENV="$SCRIPT_DIR/.venv/bin"
-TOE="$SCRIPT_DIR/AIPSummitYousuke.8.toe"
+TOE="$SCRIPT_DIR/AIPSummitYousuke.36.toe"
 TD_APP="/Applications/TouchDesigner.app/Contents/MacOS/TouchDesigner"
 
 MODE="${1:-td}"

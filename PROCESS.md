@@ -329,7 +329,7 @@ After each build phase:
 - `td_get_perf` — FPS check (target: >=30)
 - `td_get_screenshot` — Visual inspection of output
 
-The production `.toe` file (AIPSummitYousuke.8.toe, 40KB) passed all
+The production `.toe` file (AIPSummitYousuke.36.toe) passed all
 verification gates with 0 compile errors and 60 FPS at 0.2% CPU on a
 MacBook Pro.
 

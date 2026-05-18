@@ -1,10 +1,11 @@
-# YOUSUKE — Audio-Reactive Live Visuals Built with AI Agents
+# YOUSUKE — Conceptual Audio Visual Art Piece Built with AI Agents
 
-> An audio-reactive live visual system whose 43 GLSL effects, 3-layer
-> compositing network, and Python standalone engine were extracted from a
-> human artist's live set and built entirely by AI agents — Claude Opus 4.7
-> (Anthropic) for effect generation and Hermes (Nous Research) for
-> TouchDesigner construction via MCP.
+> A conceptual audio visual art piece whose 43 GLSL effects, 3-layer
+> additive compositing, and 7 real-time audio parameters produce ~6.4 × 10³⁷
+> possible visual states — roughly 2.5 quintillion universe lifetimes to
+> exhaust at 60 fps. Built entirely by AI agents: Claude Opus 4.7 (Anthropic)
+> for effect generation and Hermes (Nous Research) for TouchDesigner
+> construction via MCP.
 
 ---
 
@@ -558,7 +559,7 @@ Requires TouchDesigner 2025.32460+ (free license from
 bash scripts/launch_summit.sh --mode td
 
 # Or open directly
-open AIPSummitYousuke.8.toe
+open AIPSummitYousuke.36.toe
 ```
 
 In TouchDesigner:
@@ -629,7 +630,7 @@ Yousuke/
 ├── CONTRIBUTING.md                    # How to extend the system
 ├── LICENSE                            # MIT
 │
-├── AIPSummitYousuke.8.toe            # Production TouchDesigner network
+├── AIPSummitYousuke.36.toe           # Production TouchDesigner network
 ├── analyze_video.py                   # Video analysis + k-means clustering
 ├── generate_effect.py                 # AI effect generation (Claude API)
 ├── download_video.py                  # Reference video downloader
