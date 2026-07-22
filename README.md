@@ -474,6 +474,27 @@ a large effect bank, 3-layer compositing, and 7 continuous audio
 parameters. The AI agents that built this system created a combinatorial
 explosion they cannot comprehend.
 
+### A Note on Documentation Integrity
+
+In July 2026, this repository was audited end-to-end by a more powerful
+model — **Claude Fable 5** — which opened the production `.toe` in
+TouchDesigner, drove the twozero MCP bridge against the live network, and
+compared what actually runs to what these documents claimed. It found
+inconsistencies: the docs said 43 effects while the production network
+carries 133; the TD audio chain exposes 6 channels, not 7 (the `onset`
+trigger in the auto-rotate script is dormant — it fails safely and has
+never fired); and several counts and paths had drifted as the piece
+evolved.
+
+We intentionally chose to leave these in the code but correct them here in
+the README — to reflect the exact piece that was exhibited, and the
+changes made on the go at the summit. The dormant onset branch, the
+version-numbered `.toe` files, the drift between what was documented and
+what was running: that *is* the piece. A system built by AI agents, audited
+by a later AI agent, that grew past its own documentation — the
+inconsistencies are the fossil record of a live artwork, not defects to be
+erased.
+
 ---
 
 ## 7. Effects Catalog
