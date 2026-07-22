@@ -1,24 +1,24 @@
-# YOUSUKE — Conceptual Audio Visual Responsive Art Piece Built with AI Agents, Curated by Humans
+# YOUSUKE: Conceptual Audio Visual Responsive Art Piece Distilled by AI, Curated by Humans
 
-> A conceptual audio visual responsive art piece whose GLSL effect bank,
+> A conceptual audio visual responsive art piece. A bank of GLSL effects,
 > 3-layer additive compositing, and 7 real-time audio parameters produce a
 > practically infinite state space. The piece walked into the AI Psychosis
 > Summit NYC with 43 effects (~6.4 × 10³⁷ visual states) and grew **live,
-> mid-performance** to 133 effects (~2.0 × 10³⁹ states) — the AI generating
-> new filters for an extra hour while the artist DJ'd. Built by AI agents:
-> Claude Opus 4.7 (Anthropic) for effect generation and Hermes (Nous
-> Research) for TouchDesigner construction via MCP. Curated, corrected, and
-> steered throughout by a human.
+> mid performance** to 133 effects (~2.0 × 10³⁹ states), the AI generating
+> new filters for an extra hour while the artist DJ'd. Distilled by AI:
+> Claude Opus 4.7 (Anthropic) generated the effects and Hermes (Nous
+> Research) built the TouchDesigner network via MCP. Curated, corrected,
+> and steered throughout by a human.
 >
 > *"The AI caught patterns I couldn't see, and I caught intent it couldn't
 > feel. Neither of us could have made this alone."*
 >
-> **Why this piece exists → [ARTIST_STATEMENT.md](ARTIST_STATEMENT.md)**
+> **Why this piece exists: [ARTIST_STATEMENT.md](ARTIST_STATEMENT.md)**
 
-![Performance still — layered thermal composite](media/summit_thermal_composite.jpg)
+![Performance still, layered thermal composite](media/summit_thermal_composite.jpg)
 
-*Live at the AI Psychosis Summit, 93 Canal Street NYC, April 30, 2026 —
-[watch the performance](https://www.youtube.com/watch?v=6kgnXu5pmf4)*
+*Live at the AI Psychosis Summit, 93 Canal Street NYC, April 30, 2026.
+[Watch the performance.](https://www.youtube.com/watch?v=6kgnXu5pmf4)*
 
 ---
 
@@ -50,19 +50,19 @@ visual output.
 
 The effect bank itself was built in generations, each correcting the last.
 The first batch of AI-generated filters missed the aesthetic entirely.
-A second iteration — guided by human-selected screenshots of the source
-material — produced the 43-effect bank the piece brought to the summit
+A second iteration, guided by human-selected screenshots of the source
+material, produced the 43-effect bank the piece brought to the summit
 (~6.4 × 10³⁷ possible visual states; roughly 2.5 quintillion universe
 lifetimes to exhaust at 60 fps). Then, about an hour before showtime, a
 third generation began: 90 derivative effects spun off from the 43, with
 the AI agents generating and wiring filters **while the performance was
-underway** — the artist DJing as the computer worked for an extra hour,
-the state space expanding live to **133 wired effects** and ~2.0 × 10³⁹
+underway**. The artist DJ'd as the computer worked for an extra hour, and
+the state space expanded live to **133 wired effects** and ~2.0 × 10³⁹
 states before the night ended.
 
 ### The Performance
 
-The piece ran live at the summit — a camera pointed at the crowd in a
+The piece ran live at the summit: a camera pointed at the crowd in a
 shuttered Chinatown bank, projected back at the room through the effect
 bank ([Reason's dispatch from the night](https://reason.com/2026/05/06/a-dispatch-from-the-ai-psychosis-summit/),
 [Business Insider's coverage](https://www.businessinsider.com/inside-nyc-ai-psychosis-summit-party-anthropic-claude-code-2026-5)):
@@ -85,27 +85,26 @@ The system is delivered on two parallel paths:
 ### The Inspiration
 
 The visual language is derived from
-**¥ØU$UK€ ¥UK1MAT$U | Boiler Room Tokyo x Super Dommune** — with
-**visuals by Bridge** — a 1:33:30 live performance whose visual identity
-was analyzed, extracted, and extended through the pipeline described in
-this document.
+**¥ØU$UK€ ¥UK1MAT$U | Boiler Room Tokyo x Super Dommune, visuals by
+Bridge**: a 1:33:30 live performance whose visual identity was analyzed,
+distilled, and extended through the pipeline described in this document.
 
 > "Zone in: it's Osaka spirit force YOUSUKE YUKIMATSU — live from
 > Dommune in Tokyo."
 
 That set is, to the artist, one of Yukimatsu's best performances paired
-with his best visuals — and the Yukimatsu × Bridge collaboration happened
+with his best visuals, and the Yukimatsu x Bridge collaboration happened
 exactly once, for that hour and a half, and never again. This piece exists
-because that collaboration will likely never repeat: rather than wait for
+because that collaboration will likely never repeat. Rather than wait for
 it, the artist took matters into his own hands and built a system that
 extends its visual identity toward infinity. It was not Yukimatsu's story
-alone that sparked the piece — it was the visual identity fused with the
+alone that sparked the piece. It was the visual identity fused with the
 musical performance, a pairing that can no longer be, stretched here into
 a state space larger than the age of the universe.
 
 The project also began from a place of inability: the artist did not know
 how to operate TouchDesigner. The **Nous Research Hermes agent** and the
-**twozero MCP bridge** made the software reachable — AI agents as the
+**twozero MCP bridge** made the software reachable. AI agents as the
 hands, the human as the eye.
 
 ### The Central Research Question
@@ -113,7 +112,7 @@ hands, the human as the eye.
 **Can AI agents extract a human artist's live visual identity from video,
 reproduce it in TouchDesigner, and generate novel extensions?**
 
-The answer, documented in [PROCESS.md](PROCESS.md), is yes — with
+The answer, documented in [PROCESS.md](PROCESS.md), is yes, with
 significant caveats about the indispensable role of human curation in the
 loop. Algorithmic clustering alone produced a statistically accurate but
 aesthetically misleading visual vocabulary. Human frame selection,
@@ -124,7 +123,7 @@ either approach alone.
 
 ## 2. Methodology
 
-The system was built through a five-phase pipeline — the last phase
+The system was built through a five-phase pipeline, with the last phase
 running live during the performance itself:
 
 ### Phase 1: Visual Identity Extraction via Computer Vision
@@ -149,9 +148,9 @@ the desired aesthetic intent. These screenshots were fed directly to Claude
 Opus 4.7 as vision input via the Hermes harness. This proved to dramatically
 improve output quality compared to relying solely on algorithmic clustering.
 
-The insight: the human eye catches aesthetic intent — mood, atmosphere,
-emotional weight — that k-means misses. The AI catches statistical patterns
-— color distributions, edge frequencies, spatial correlations — that the
+The insight: the human eye catches aesthetic intent (mood, atmosphere,
+emotional weight) that k-means misses. The AI catches statistical patterns
+(color distributions, edge frequencies, spatial correlations) that the
 human misses. Together they produce a visual vocabulary that neither could
 achieve alone.
 
@@ -166,9 +165,9 @@ model.
 **The extension strategy:** First, 21 original effects were generated that
 faithfully reproduce the source material's visual identity. Then a second
 pass instructed the harness to produce 21 additional "mutation" effects
-inspired by the initial set — same visual DNA, new expressions. This doubled
-the visual vocabulary while maintaining aesthetic coherence. A third pass —
-90 derivative effects spun off from the full bank — was launched roughly an
+inspired by the initial set: same visual DNA, new expressions. This doubled
+the visual vocabulary while maintaining aesthetic coherence. A third pass,
+90 derivative effects spun off from the full bank, was launched roughly an
 hour before the summit performance and completed while it was underway
 (see [Phase 5](#phase-5-live-expansion-during-the-performance)).
 
@@ -185,8 +184,8 @@ auto-rotation logic were built programmatically without manual TD interaction.
 Roughly one hour before showtime at the AI Psychosis Summit, a final
 generation pass was launched: 90 derivative effects (`fx_g3_*`) spun off
 from the 43-effect bank. The generation and wiring ran for about an extra
-hour — **while the performance was underway**. The artist DJ'd; the
-computer built filters; the auto-rotate system, which counts connected
+hour, **while the performance was underway**. The artist DJ'd. The
+computer built filters. The auto-rotate system, which counts connected
 router inputs at runtime, absorbed each new effect into the rotation the
 moment it was wired. The piece the audience saw at the start of the night
 and the piece they saw at the end were not the same instrument.
@@ -476,7 +475,7 @@ scales accordingly:
 > ≈ **7.6 × 10¹⁹ universe lifetimes** to exhaust at 60 fps
 
 The auto-rotate script counts connected router inputs at runtime, so the
-state space grows automatically every time a new effect is wired in — which
+state space grows automatically every time a new effect is wired in. That
 is exactly what happened on stage: the universe of possible frames expanded
 by two orders of magnitude while the audience was inside it.
 
@@ -519,22 +518,21 @@ explosion they cannot comprehend.
 
 ### A Note on Documentation Integrity
 
-In July 2026, this repository was audited end-to-end by a more powerful
-model — **Claude Fable 5** — which opened the production `.toe` in
+In July 2026, this repository was audited end to end by a more powerful
+model, **Claude Fable 5**, which opened the production `.toe` in
 TouchDesigner, drove the twozero MCP bridge against the live network, and
 compared what actually runs to what these documents claimed. It found
 inconsistencies: the docs said 43 effects while the production network
 carries 133; the TD audio chain exposes 6 channels, not 7 (the `onset`
-trigger in the auto-rotate script is dormant — it fails safely and has
-never fired); and several counts and paths had drifted as the piece
-evolved.
+trigger in the auto-rotate script is dormant, fails safely, and has never
+fired); and several counts and paths had drifted as the piece evolved.
 
 We intentionally chose to leave these in the code but correct them here in
-the README — to reflect the exact piece that was exhibited, and the
-changes made on the go at the summit. The dormant onset branch, the
+the README, to reflect the exact piece that was exhibited and the changes
+made on the go at the summit. The dormant onset branch, the
 version-numbered `.toe` files, the drift between what was documented and
-what was running: that *is* the piece. A system built by AI agents, audited
-by a later AI agent, that grew past its own documentation — the
+what was running: that *is* the piece. A system distilled by AI agents,
+audited by a later AI agent, that grew past its own documentation. The
 inconsistencies are the fossil record of a live artwork, not defects to be
 erased.
 
@@ -620,7 +618,7 @@ from cluster analysis of the source video.
 
 ### Gen3 Shaders (90, generated live at the summit)
 
-Generated in the final hour before and during the April 30 performance —
+Generated in the final hour before and during the April 30 performance:
 a third generation focused on body-contour and
 silhouette treatments (33 `body_*` effects: neon outlines, laser scans,
 holograms, x-ray/thermal/comic contours, kaleidoscope and starfield
