@@ -57,9 +57,9 @@ except ImportError:
 
 try:
     import mediapipe as mp
-    HAS_MEDIAPIPE = True
     _mp_selfie = mp.solutions.selfie_segmentation
-except ImportError:
+    HAS_MEDIAPIPE = True
+except Exception:
     HAS_MEDIAPIPE = False
 
 # ── Constants ─────────────────────────────────────────────────────────────────

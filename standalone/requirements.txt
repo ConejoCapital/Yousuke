@@ -30,3 +30,7 @@ scikit-learn>=1.4.0
 
 # Progress bars (analyze_video.py, generate_effect.py)
 tqdm>=4.66.0
+
+# Test suite
+pytest>=8.0.0
+pytest-benchmark>=4.0.0

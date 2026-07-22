@@ -78,6 +78,8 @@ python generate_effect.py --describe "description of desired visual effect"
 | Path | Purpose |
 |------|---------|
 | `README.md` | Canonical project documentation |
+| `ARTIST_STATEMENT.md` | The artist's intent, in his voice (no AI wording, no em dashes) |
+| `media/` | Performance stills from April 30, 2026 |
 | `ARCHITECTURE.md` | Technical system architecture reference |
 | `PROCESS.md` | Narrative of the AI-driven build process |
 | `CONTRIBUTING.md` | How to extend the system |

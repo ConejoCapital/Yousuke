@@ -31,9 +31,13 @@ echo ""
 
 check_deps() {
     echo "→ Checking dependencies..."
+    if [ ! -x "$VENV/python" ]; then
+        echo "  No .venv found, running setup..."
+        bash "$SCRIPT_DIR/scripts/setup.sh"
+    fi
     if ! "$VENV/python" -c "import cv2, sounddevice, librosa" 2>/dev/null; then
         echo "  Installing Python deps..."
-        "$VENV/pip" install -q -r "$SCRIPT_DIR/standalone/requirements.txt"
+        "$VENV/python" -m pip install -q -r "$SCRIPT_DIR/standalone/requirements.txt"
     fi
     echo "  ✓ Python deps OK"
 }
@@ -41,8 +45,7 @@ check_deps() {
 launch_td() {
     echo "→ Launching TouchDesigner..."
     if [ ! -f "$TOE" ]; then
-        echo "  ERROR: visuals.toe not found at $TOE"
-        echo "  Run the Hermes TD build first."
+        echo "  ERROR: AIPSummitYousuke.36.toe not found at $TOE"
         exit 1
     fi
     if [ ! -f "$TD_APP" ]; then
@@ -54,7 +57,7 @@ launch_td() {
     echo "  ✓ TouchDesigner launched with visuals.toe"
     echo ""
     echo "  Controls (once window opens):"
-    echo "    1-8    → Lock to effect"
+    echo "    1-9    → Lock to effect"
     echo "    0      → Auto-rotate mode"
     echo "    Space  → Cycle next effect"
     echo "    Esc    → Exit fullscreen"

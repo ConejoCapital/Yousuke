@@ -41,7 +41,7 @@
 
 ## 1. Introduction
 
-Yousuke is a conceptual audio visual art piece conceived for the
+Yousuke is a conceptual audio visual responsive art piece conceived for the
 **AI Psychosis Summit NYC**, where it was performed live on April 30, 2026.
 It takes live audio input (microphone, DJ interface, or pre-recorded audio
 file), performs real-time spectral feature extraction, and drives a bank of
@@ -77,9 +77,9 @@ bank ([Reason's dispatch from the night](https://reason.com/2026/05/06/a-dispatc
 
 The system is delivered on two parallel paths:
 
-- **TouchDesigner** (`.toe`) — GPU-accelerated, presentation-grade, built
+- **TouchDesigner** (`.toe`): GPU-accelerated, presentation-grade, built
   programmatically via AI agents through the twozero MCP bridge
-- **Python standalone** (`standalone/visuals.py`) — runs on any laptop with
+- **Python standalone** (`standalone/visuals.py`): runs on any laptop with
   a webcam and microphone, no TouchDesigner required
 
 ### The Inspiration
@@ -89,7 +89,7 @@ The visual language is derived from
 Bridge**: a 1:33:30 live performance whose visual identity was analyzed,
 distilled, and extended through the pipeline described in this document.
 
-> "Zone in: it's Osaka spirit force YOUSUKE YUKIMATSU — live from
+> "Zone in: it's Osaka spirit force YOUSUKE YUKIMATSU, live from
 > Dommune in Tokyo."
 
 That set is, to the artist, one of Yukimatsu's best performances paired
@@ -136,7 +136,7 @@ using k-means, then deduplicates into 7 consolidated visual techniques.
 
 **The canonical correction:** This analysis revealed that 7 of 8
 hand-guessed effects were aesthetically wrong. The actual visual grammar is
-chiaroscuro-bloom-chromatic with soft, indistinct light-boundary edges — not
+chiaroscuro-bloom-chromatic with soft, indistinct light-boundary edges, not
 sharp TRON-cyberpunk contours. What appeared to be "edge detection" in the
 source material was actually high-contrast luminance boundaries rendered
 through heavy bloom and chromatic aberration.
@@ -265,12 +265,12 @@ The Python engine (`standalone/visuals.py`) uses a plugin architecture:
 
 ### Input Flexibility
 
-- **Video**: MacBook webcam, OBS Virtual Camera, iPhone via USB, or
-  pre-recorded video file
-- **Audio**: Live microphone / audio interface, or pre-recorded audio file
-  with beat-synchronized effect application
-- **Recording**: Apply effects to any video input, match the beat from any
-  audio source, and record the output
+- **Video**: any device the OS presents as a camera: MacBook webcam, OBS
+  Virtual Camera, iPhone via USB
+- **Audio**: live microphone / audio interface, or a pre-recorded audio
+  file with beat-synchronized effect application
+- **Offline rendering**: `tools/render_reel.py` renders effect reels
+  headless, without a live camera or audio device
 
 ---
 
@@ -284,16 +284,16 @@ python analyze_video.py --interval 3 --clusters 40
 
 The pipeline operates in 5 stages:
 
-1. **Frame sampling** — Seeks to every N seconds via
+1. **Frame sampling**: Seeks to every N seconds via
    `cv2.CAP_PROP_POS_MSEC`, saves `(timestamp, frame)` pairs
-2. **Feature extraction** — Per frame: 15 dominant color floats (k-means
+2. **Feature extraction**: Per frame: 15 dominant color floats (k-means
    k=5 on 64x64 downsampled), edge density, brightness, saturation mean,
    color variance (19 floats total)
-3. **K-means clustering** — `sklearn.cluster.KMeans` on
+3. **K-means clustering**: `sklearn.cluster.KMeans` on
    `StandardScaler`-normalized feature matrix
-4. **Representative selection** — Frame with minimum L2 distance to cluster
+4. **Representative selection**: Frame with minimum L2 distance to cluster
    centroid
-5. **Catalog build** — JSON + JPEG saved to `reference/`
+5. **Catalog build**: JSON + JPEG saved to `reference/`
 
 The analysis of the YOUSUKE YUKIMATSU set produced 40 raw clusters that
 consolidated into 7 distinct visual techniques:
@@ -315,8 +315,8 @@ Full catalog: [reference/CANONICAL_CATALOG.md](reference/CANONICAL_CATALOG.md)
 The operator screenshots specific frames from the set that capture the
 desired aesthetic. These screenshots are fed directly to Claude Opus 4.7
 via the Hermes harness as vision input. The AI analyzes the frame's visual
-properties — luminance distribution, color palette, edge characteristics,
-bloom behavior — and generates TouchDesigner GLSL shaders that reproduce
+properties (luminance distribution, color palette, edge characteristics,
+bloom behavior) and generates TouchDesigner GLSL shaders that reproduce
 the style.
 
 This approach dramatically improved fidelity compared to relying solely on
@@ -341,18 +341,18 @@ python generate_effect.py --from-canonical reference/canonical_effects.json --id
 
 Every generated effect passes 4 validation checks before being saved:
 
-1. **Syntax** — `ast.parse()` catches malformed Python
-2. **Required exports** — `EFFECT_META` dict + `fx_function` callable
-3. **Test run** — `fx_function(np.zeros((480,640,3)), MockAF(), {})`
+1. **Syntax**: `ast.parse()` catches malformed Python
+2. **Required exports**: `EFFECT_META` dict + `fx_function` callable
+3. **Test run**: `fx_function(np.zeros((480,640,3)), MockAF(), {})`
    must return `(480,640,3) uint8`
-4. **Shape match** — Output shape must equal input shape
+4. **Shape match**: Output shape must equal input shape
 
 On validation failure, the error and prior code are fed back to the model
 for up to 2 retries.
 
 **The extension strategy:** 21 original effects were generated that
 faithfully reproduce the source material's visual identity. A second pass
-produced 21 additional "mutation" effects — same visual DNA, new
+produced 21 additional "mutation" effects: same visual DNA, new
 expressions. This is how the visual identity was extended beyond
 reproduction into novel territory.
 
@@ -365,13 +365,13 @@ The TD network was built entirely through AI agents:
 - **Bridge**: twozero MCP bridge by 404.zero (JSON-RPC on
   `localhost:40404`)
 - **Build scripts**:
-  - `tools/td_build_effects.py` — 21 original GLSL pixel shaders
+  - `tools/td_build_effects.py`: 21 original GLSL pixel shaders
     (1,347 lines of shader code)
-  - `tools/td_build_mutations.py` — 21 mutation GLSL variants
+  - `tools/td_build_mutations.py`: 21 mutation GLSL variants
     (1,358 lines of shader code)
-  - `tools/td_wire_all.py` — 3-router wiring topology
-  - `tools/td_add_prominence.py` — Per-frequency-band dynamic opacity
-  - `tools/td_update_rotation.py` — Aggressive random auto-rotation
+  - `tools/td_wire_all.py`: 3-router wiring topology
+  - `tools/td_add_prominence.py`: Per-frequency-band dynamic opacity
+  - `tools/td_update_rotation.py`: Aggressive random auto-rotation
 
 Each GLSL shader follows a common architecture:
 
@@ -405,7 +405,11 @@ Effects are structured as baseCOMPs with:
 | `mids` | 0-1 | 300-3000 Hz | Vocals, leads, synths |
 | `highs` | 0-1 | 3000 Hz+ | Hi-hats, cymbals, presence |
 | `beat` | 0/1 | Trigger | Beat onset detection |
-| `onset` | 0-1 | Transient | Transient energy envelope |
+| `onset` | 0-1 | Transient | Transient energy envelope (Python standalone only) |
+
+The TouchDesigner network exposes the first six channels. `onset` exists
+only in the Python standalone, so the onset trigger in the TD auto-rotate
+script stays dormant and switching runs on the timer and the beat counter.
 
 ### Prominence System
 
@@ -428,7 +432,7 @@ The auto-rotate system cycles effects with the following parameters:
 - **Beat switch threshold**: 5 beats (music-driven switching)
 - **Onset threshold**: 0.2 (transient energy gate)
 - **Minimum onset time**: 0.8 seconds (debounce)
-- **Selection**: `random.sample(range(N), 3)` — 3 different effects per
+- **Selection**: `random.sample(range(N), 3)`, 3 different effects per
   switch event, one per compositing layer
 
 ---
@@ -483,12 +487,12 @@ by two orders of magnitude while the audience was inside it.
 
 The 6.4 × 10³⁷ figure is a lower bound. It excludes:
 
-- **`iTime` (temporal evolution)** — Every shader uses `iTime` as an
+- **`iTime` (temporal evolution)**: Every shader uses `iTime` as an
   animation driver. Even with the same 3 effects and the same 7 audio
   values, the visual output changes continuously over time.
-- **Feedback buffers** — Effects like Feedback Spiral Zoom and Glitch
+- **Feedback buffers**: Effects like Feedback Spiral Zoom and Glitch
   Feedback carry temporal state from previous frames.
-- **Chaos Engine transforms** — The aggressive variant uses 150ms minimum
+- **Chaos Engine transforms**: The aggressive variant uses 150ms minimum
   gap, producing ~10⁹⁵ states when temporal evolution is included.
 
 ### Switching Behavior
@@ -509,7 +513,7 @@ between switches.
 
 Every frame of Yousuke output has almost certainly never existed before and
 will never exist again. The system does not cycle through a playlist of
-looks — it occupies a state space so large that exhaustive traversal would
+looks. It occupies a state space so large that exhaustive traversal would
 require quintillions of universe lifetimes. This was never specified as a
 design goal. It is an emergent property of three architectural decisions:
 a large effect bank, 3-layer compositing, and 7 continuous audio
@@ -547,7 +551,7 @@ erased.
 | Original GLSL shaders | 21 | AI-generated from source video analysis |
 | Mutation GLSL shaders | 21 | AI-generated variations of originals |
 | Canon shards | 1 | Vision-verified canonical effect |
-| Gen3 GLSL shaders | 90 | Post-summit body-contour & hybrid expansion |
+| Gen3 GLSL shaders | 90 | Derivatives generated live during the performance |
 | Hand-coded Python effects | 8 | Initial prototypes |
 | AI-generated Python effects | 21 | Claude-generated plugins |
 | Canonical Python effects | 2 | Cluster-derived plugins |
@@ -555,7 +559,7 @@ erased.
 The 43 core GLSL effects (21 + 21 + 1) were the bank the piece brought to
 the summit on April 30, 2026. The 90 Gen3 effects are derivatives of those
 43, generated via `tools/td_build_gen3.py` starting roughly an hour before
-showtime and wired in **while the performance was underway** — bringing the
+showtime and wired in **while the performance was underway**, bringing the
 production network to 133 wired effects per router before the night ended.
 (The resulting `.toe` was committed to this repository on May 13, 2026.)
 
@@ -642,34 +646,36 @@ performance data: [docs/EFFECTS_CATALOG.md](docs/EFFECTS_CATALOG.md)
 git clone https://github.com/ConejoCapital/Yousuke.git
 cd Yousuke
 
-# Set up Python environment
+# Set up the Python environment (creates .venv and installs everything)
 bash scripts/setup.sh
 
 # Run the Python standalone (webcam + mic)
-python standalone/visuals.py --mode webcam --audio mic
+.venv/bin/python standalone/visuals.py --mode webcam --audio mic
 ```
 
 ### Python Standalone
 
 ```bash
 # Webcam + live microphone
-python standalone/visuals.py --mode webcam --audio mic
+.venv/bin/python standalone/visuals.py --mode webcam --audio mic
 
-# Pre-recorded audio file
-python standalone/visuals.py --mode file --audio reference/audio.mp3
+# Drive the visuals with a pre-recorded audio file instead of the mic
+.venv/bin/python standalone/visuals.py --mode webcam --audio reference/audio.mp3
 
-# With reference video
-python standalone/visuals.py --mode file --video reference/video.mp4
+# Start locked on a specific effect, or hide the HUD
+.venv/bin/python standalone/visuals.py --effect 3 --no-hud
 ```
 
 **Keyboard controls:**
 
 | Key | Action |
 |-----|--------|
-| `1-8` | Lock to specific effect |
+| `1-9` | Lock to a specific effect |
+| `+` / `=` | Cycle forward through all effects |
 | `0` | Return to auto-rotate |
-| `Space` | Cycle to next effect |
-| `Esc` | Exit fullscreen / quit |
+| `Space` | Pause / resume |
+| `L` | Load a new audio file at runtime |
+| `Q` / `Esc` | Quit |
 
 ### TouchDesigner Network
 
@@ -694,15 +700,18 @@ Or via TD Python console:
 op('/project1/main_output').par.winopen.pulse()
 ```
 
-### Feeding a Video File
+### Driving the Visuals with a Recorded Track
 
-Apply effects to pre-recorded video with beat-matched audio:
+Point `--audio` at any audio file and the effects sync to its beats
+instead of the live microphone:
 
 ```bash
-python standalone/visuals.py --mode file \
-    --video reference/video.mp4 \
+.venv/bin/python standalone/visuals.py --mode webcam \
     --audio reference/audio.mp3
 ```
+
+You can also press `L` while the engine is running to load a different
+audio file without restarting.
 
 ### Generating New Effects
 
@@ -762,7 +771,8 @@ Yousuke/
 ├── pytest.ini                         # Test configuration
 │
 ├── standalone/
-│   └── visuals.py                     # Python standalone visual engine
+│   ├── visuals.py                     # Python standalone visual engine
+│   └── requirements.txt               # Python dependencies
 │
 ├── effects/
 │   ├── __init__.py                    # Plugin loader
@@ -810,12 +820,12 @@ Yousuke/
 ├── tests/
 │   ├── conftest.py                    # Shared fixtures
 │   ├── test_smoke.py                  # 12 smoke tests
-│   ├── test_audio_features.py         # 11 audio extraction tests
+│   ├── test_audio_features.py         # 12 audio extraction tests
 │   ├── test_plugin_loader.py          # 7 plugin loader tests
 │   ├── test_effects_render.py         # 155 effect rendering tests
 │   ├── test_perf.py                   # 32 performance tests
 │   ├── test_analyze_video.py          # 7 video analysis tests
-│   └── test_generate_effect.py        # 10 generation tests
+│   └── test_generate_effect.py        # 9 generation tests
 │
 ├── scripts/
 │   ├── setup.sh                       # Environment setup
@@ -840,32 +850,32 @@ Yousuke/
 ### Python Environment
 
 - **Python** 3.11+
-- **Core dependencies**: `opencv-python`, `numpy`, `sounddevice`, `librosa`,
-  `scipy`, `scikit-learn`
+- **Core dependencies**: `opencv-python`, `numpy`, `sounddevice`, `librosa`
+- **Optional**: `mediapipe` (body segmentation), `Pillow` (kanji effect),
+  `scikit-learn` (video analysis)
 - **For AI generation**: `anthropic` (requires `ANTHROPIC_API_KEY`)
-- **For testing**: `pytest`
+- **For testing**: `pytest` (installed by the requirements file)
 
 ```bash
-# Setup via script
+# Setup via script (creates .venv, installs everything)
 bash scripts/setup.sh
 
 # Or manually
-python -m venv .venv
-source .venv/bin/activate
-pip install -r standalone/requirements.txt
+python3 -m venv .venv
+.venv/bin/python -m pip install -r standalone/requirements.txt
 ```
 
 ### TouchDesigner (Optional)
 
 - **TouchDesigner** 2025.32460+ (free non-commercial license)
 - Download from [derivative.ca](https://derivative.ca/download)
-- **twozero MCP bridge** by 404.zero — required only for programmatic
+- **twozero MCP bridge** by 404.zero: required only for programmatic
   network construction, not for running the finished `.toe`
 
 ### For AI-Agent-Driven Construction
 
 - **Hermes Agent** by Nous Research with TouchDesigner skill
-- **twozero MCP bridge** — JSON-RPC server on `localhost:40404`
+- **twozero MCP bridge**: JSON-RPC server on `localhost:40404`
 - Both required only for rebuilding/extending the TD network, not for
   running the finished system
 
@@ -875,7 +885,7 @@ pip install -r standalone/requirements.txt
 
 Built by **Mauricio "Bunny" Trujillo**
 ([@ConejoCapital](https://x.com/ConejoCapital)), cofounder of **Tektonic
-Company** ([@TektonicCompany](https://x.com/TektonicCompany)) — "We build
+Company** ([@TektonicCompany](https://x.com/TektonicCompany)): "We build
 intelligent systems and onchain infrastructure for teams pushing the
 frontier."
 

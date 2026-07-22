@@ -1,125 +1,68 @@
 #!/usr/bin/env bash
-# ¥ØUSUK€ Visual Extender — One-shot environment setup
-# Run: bash ~/Desktop/Yousuke/setup.sh
+# YOUSUKE: one-shot environment setup.
+# Run from anywhere: bash scripts/setup.sh
+#
+# Creates a local .venv and installs everything needed to run the Python
+# standalone and the test suite. Downloading the reference video is
+# optional and only needed if you want to re-run the analysis pipeline:
+#   bash scripts/setup.sh --with-video
 
 set -e
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REF_DIR="$SCRIPT_DIR/reference"
-FRAMES_DIR="$REF_DIR/frames"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+VENV="$SCRIPT_DIR/.venv"
 
-echo "=== ¥ØUSUK€ Visual Extender Setup ==="
-echo "Working directory: $SCRIPT_DIR"
+echo "=== YOUSUKE setup ==="
+echo "Project root: $SCRIPT_DIR"
 
-# ── 1. Create reference folder structure ──────────────────────────────────────
-mkdir -p "$REF_DIR" "$FRAMES_DIR"
-
-# ── 2. Install yt-dlp via brew ────────────────────────────────────────────────
+# 1. Python virtual environment
 echo ""
-echo "[1/4] Installing yt-dlp..."
-if command -v yt-dlp &>/dev/null; then
-    echo "  yt-dlp already installed: $(yt-dlp --version)"
+echo "[1/2] Creating virtual environment..."
+if [ -x "$VENV/bin/python" ]; then
+    echo "  .venv already exists"
 else
-    brew install yt-dlp
-    echo "  yt-dlp installed: $(yt-dlp --version)"
+    python3 -m venv "$VENV"
+    echo "  Created $VENV"
 fi
 
-# ── 3. Install Python dependencies ───────────────────────────────────────────
+# 2. Dependencies
 echo ""
-echo "[2/4] Installing Python packages..."
-pip install --quiet --upgrade \
-    librosa \
-    sounddevice \
-    opencv-python \
-    mediapipe \
-    moderngl \
-    pygame \
-    numpy \
-    Pillow \
-    yt-dlp \
-    requests
+echo "[2/2] Installing Python packages..."
+"$VENV/bin/python" -m pip install --quiet --upgrade pip
+"$VENV/bin/python" -m pip install --quiet -r "$SCRIPT_DIR/standalone/requirements.txt"
+echo "  Done."
 
-echo "  Python packages installed."
-
-# ── 4. Download video ────────────────────────────────────────────────────────
-echo ""
-echo "[3/4] Downloading ¥ØUSUK€ Boiler Room video..."
-VIDEO_ID="CxflYGeSx7Q"
-VIDEO_OUT="$REF_DIR/video.mp4"
-
-if [ -f "$VIDEO_OUT" ] && [ -s "$VIDEO_OUT" ]; then
-    echo "  Video already exists: $VIDEO_OUT"
-else
-    yt-dlp \
-        --format "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" \
-        --output "$VIDEO_OUT" \
-        --write-info-json \
-        --write-description \
-        "https://www.youtube.com/watch?v=$VIDEO_ID" || {
-            echo "  WARNING: Video download failed (may require age verification or be unavailable)."
-            echo "  Skipping video download — standalone/visuals.py works without it."
-        }
+# Optional: download the reference video for the analysis pipeline
+if [[ "$1" == "--with-video" ]]; then
+    echo ""
+    echo "[optional] Downloading reference video..."
+    mkdir -p "$SCRIPT_DIR/reference/frames"
+    VIDEO_OUT="$SCRIPT_DIR/reference/video.mp4"
+    if [ -s "$VIDEO_OUT" ]; then
+        echo "  Video already exists: $VIDEO_OUT"
+    else
+        "$VENV/bin/python" -m yt_dlp \
+            --format "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" \
+            --output "$VIDEO_OUT" \
+            "https://www.youtube.com/watch?v=CxflYGeSx7Q" || {
+                echo "  WARNING: download failed. The standalone works without it."
+            }
+    fi
+    if [ -s "$VIDEO_OUT" ] && [ ! -f "$SCRIPT_DIR/reference/audio.mp3" ]; then
+        command -v ffmpeg >/dev/null && \
+            ffmpeg -i "$VIDEO_OUT" -q:a 0 -map a "$SCRIPT_DIR/reference/audio.mp3" -y -loglevel error && \
+            echo "  Audio extracted: reference/audio.mp3"
+    fi
 fi
 
-# ── 5. Extract audio ──────────────────────────────────────────────────────────
-AUDIO_OUT="$REF_DIR/audio.mp3"
-if [ -f "$VIDEO_OUT" ] && [ -s "$VIDEO_OUT" ] && [ ! -f "$AUDIO_OUT" ]; then
-    echo "  Extracting audio track..."
-    ffmpeg -i "$VIDEO_OUT" -q:a 0 -map a "$AUDIO_OUT" -y -loglevel error
-    echo "  Audio extracted: $AUDIO_OUT"
-elif [ -f "$AUDIO_OUT" ]; then
-    echo "  Audio already exists: $AUDIO_OUT"
-fi
-
-# ── 6. Extract 30 key frames ─────────────────────────────────────────────────
-echo ""
-echo "[4/4] Extracting reference frames..."
-if [ -f "$VIDEO_OUT" ] && [ -s "$VIDEO_OUT" ]; then
-    python3 "$SCRIPT_DIR/download_video.py" --frames-only 2>/dev/null || \
-    python3 - <<'PYEOF'
-import cv2, os, sys
-
-video_path = os.path.expanduser("~/Desktop/Yousuke/reference/video.mp4")
-frames_dir = os.path.expanduser("~/Desktop/Yousuke/reference/frames")
-os.makedirs(frames_dir, exist_ok=True)
-
-cap = cv2.VideoCapture(video_path)
-total = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-fps   = cap.get(cv2.CAP_PROP_FPS)
-duration = total / fps if fps > 0 else 0
-
-N = 30
-indices = [int(i * total / N) for i in range(N)]
-saved = 0
-for idx in indices:
-    cap.set(cv2.CAP_PROP_POS_FRAMES, idx)
-    ret, frame = cap.read()
-    if ret:
-        ts = idx / fps if fps > 0 else 0
-        path = os.path.join(frames_dir, f"frame_{saved:02d}_{ts:.1f}s.jpg")
-        cv2.imwrite(path, frame)
-        saved += 1
-cap.release()
-print(f"  Extracted {saved} frames to {frames_dir}")
-PYEOF
-else
-    echo "  No video file found — skipping frame extraction."
-    echo "  Run 'python download_video.py' manually after video is available."
-fi
-
-# ── Done ──────────────────────────────────────────────────────────────────────
 echo ""
 echo "=== Setup complete ==="
 echo ""
-echo "Reference folder contents:"
-ls -lh "$REF_DIR" 2>/dev/null || true
+echo "Run the visual engine (webcam + mic):"
+echo "  $VENV/bin/python standalone/visuals.py --mode webcam --audio mic"
 echo ""
-echo "Next steps:"
-echo "  1. Run the visual engine:"
-echo "     python $SCRIPT_DIR/standalone/visuals.py --mode webcam --audio mic"
+echo "Run the tests:"
+echo "  $VENV/bin/python -m pytest"
 echo ""
-echo "  2. Run with pre-recorded audio:"
-echo "     python $SCRIPT_DIR/standalone/visuals.py --mode file --audio $AUDIO_OUT"
-echo ""
-echo "  3. Build TouchDesigner network:"
-echo "     See $SCRIPT_DIR/touchdesigner/README_FOR_HERMES.md"
+echo "Open the TouchDesigner piece (needs TouchDesigner installed):"
+echo "  open AIPSummitYousuke.36.toe"
