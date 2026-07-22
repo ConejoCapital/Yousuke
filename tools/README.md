@@ -21,7 +21,7 @@ twozero MCP bridge.
 |--------|---------|-------|
 | `td_build_effects.py` | Build 21 original GLSL effects as baseCOMPs | `python tools/td_build_effects.py` |
 | `td_build_mutations.py` | Build 21 mutation GLSL effects as baseCOMPs | `python tools/td_build_mutations.py` |
-| `td_wire_all.py` | Wire all 43 effects to 3-router topology | `python tools/td_wire_all.py` |
+| `td_wire_all.py` | Wire all effects to 3-router topology | `python tools/td_wire_all.py` |
 | `td_add_prominence.py` | Insert audio-driven levelTOPs (opacity + beat flash) | `python tools/td_add_prominence.py` |
 | `td_update_rotation.py` | Write aggressive random 3-layer auto-rotate script | `python tools/td_update_rotation.py` |
 | `td_mcp.py` | Minimal MCP bridge helper (import as library) | `from tools.td_mcp import td_call` |
@@ -49,7 +49,7 @@ python tools/td_build_effects.py
 # 2. Build mutation effects
 python tools/td_build_mutations.py
 
-# 3. Wire all 43 effects to the 3-router topology
+# 3. Wire all effects to the 3-router topology
 python tools/td_wire_all.py
 
 # 4. Add audio-driven prominence (opacity + beat flash)

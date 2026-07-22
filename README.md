@@ -1,11 +1,19 @@
 # YOUSUKE — Conceptual Audio Visual Art Piece Built with AI Agents
 
-> A conceptual audio visual art piece whose 43 GLSL effects, 3-layer
-> additive compositing, and 7 real-time audio parameters produce ~6.4 × 10³⁷
-> possible visual states — roughly 2.5 quintillion universe lifetimes to
-> exhaust at 60 fps. Built entirely by AI agents: Claude Opus 4.7 (Anthropic)
-> for effect generation and Hermes (Nous Research) for TouchDesigner
-> construction via MCP.
+> A conceptual audio visual art piece whose GLSL effect bank, 3-layer
+> additive compositing, and 7 real-time audio parameters produce a
+> practically infinite state space — ~6.4 × 10³⁷ visual states as performed
+> at the AI Psychosis Summit NYC (43 effects), ~2.0 × 10³⁹ in the current
+> production network (133 effects). Built entirely by AI agents: Claude
+> Opus 4.7 (Anthropic) for effect generation and Hermes (Nous Research) for
+> TouchDesigner construction via MCP.
+>
+> **Why this piece exists → [ARTIST_STATEMENT.md](ARTIST_STATEMENT.md)**
+
+![Performance still — layered thermal composite](media/summit_thermal_composite.jpg)
+
+*Live at the AI Psychosis Summit, 93 Canal Street NYC, April 30, 2026 —
+[watch the performance](https://www.youtube.com/watch?v=6kgnXu5pmf4)*
 
 ---
 
@@ -29,14 +37,34 @@
 ## 1. Introduction
 
 Yousuke is a conceptual audio visual art piece conceived for the
-**AI Psychosis Summit NYC** on April 30, 2026. It takes live audio input
-(microphone, DJ interface, or pre-recorded audio file), performs real-time
-spectral feature extraction, and drives a bank of 43 GLSL pixel shaders that
-transform a camera feed into beat-synchronized visual output.
+**AI Psychosis Summit NYC**, where it was performed live on April 30, 2026.
+It takes live audio input (microphone, DJ interface, or pre-recorded audio
+file), performs real-time spectral feature extraction, and drives a bank of
+GLSL pixel shaders that transform a camera feed into beat-synchronized
+visual output.
 
-Its 3-layer additive compositing of 43 GLSL effects, driven by 7 real-time
-audio parameters, produces ~6.4 × 10³⁷ possible visual states — roughly
-2.5 quintillion universe lifetimes to exhaust at 60 fps.
+The network performed at the summit carried 43 GLSL effects; its 3-layer
+additive compositing, driven by 7 real-time audio parameters, produced
+~6.4 × 10³⁷ possible visual states — roughly 2.5 quintillion universe
+lifetimes to exhaust at 60 fps. After the summit the effect bank was
+expanded with a third generation of 90 body-contour and hybrid effects,
+bringing the current production network to **133 wired effects** and
+~2.0 × 10³⁹ states.
+
+### The Performance
+
+The piece ran live at the summit — a camera pointed at the crowd in a
+shuttered Chinatown bank, projected back at the room through the effect
+bank ([Reason's dispatch from the night](https://reason.com/2026/05/06/a-dispatch-from-the-ai-psychosis-summit/),
+[Business Insider's coverage](https://www.businessinsider.com/inside-nyc-ai-psychosis-summit-party-anthropic-claude-code-2026-5)):
+
+| | |
+|---|---|
+| ![Neon contour](media/summit_neon_contour.jpg) | ![Plasma layers](media/summit_plasma_layers.jpg) |
+
+- **Performance night screen capture** (Apr 30, 2026): [youtube.com/watch?v=6kgnXu5pmf4](https://www.youtube.com/watch?v=6kgnXu5pmf4)
+- **Setup day, earlier iteration** (Apr 28, 2026): [youtube.com/watch?v=exUo5tm1M8k](https://www.youtube.com/watch?v=exUo5tm1M8k)
+- **The summit**: [psychosis.nyc](https://psychosis.nyc/)
 
 The system is delivered on two parallel paths:
 
@@ -119,7 +147,7 @@ the visual vocabulary while maintaining aesthetic coherence.
 
 The Nous Research Hermes Agent, equipped with the TouchDesigner skill and
 36 native tools, constructed the complete TD network through the twozero MCP
-bridge (JSON-RPC on `localhost:40404`). All 43 GLSL shaders, the 3-layer
+bridge (JSON-RPC on `localhost:40404`). The initial 43 GLSL shaders, the 3-layer
 compositing chain, frequency-band prominence mapping, and aggressive
 auto-rotation logic were built programmatically without manual TD interaction.
 
@@ -149,7 +177,7 @@ auto-rotation logic were built programmatically without manual TD interaction.
         │         │
         ▼         ▼
  ┌─────────────────────────────────────────────────┐
- │              EFFECT ENGINE (43 GLSL shaders)     │
+ │             EFFECT ENGINE (133 GLSL shaders)     │
  │                                                  │
  │  Each shader receives: camera texture + uAudio   │
  │  uAudio  = (time, rms, bass, sub_bass)           │
@@ -178,7 +206,7 @@ auto-rotation logic were built programmatically without manual TD interaction.
 
 The TD network uses a 3-layer compositing architecture where three
 independent `switchTOP` routers (`effect_router`, `layer2_router`,
-`layer3_router`) each select from the same bank of 43 effects. These are
+`layer3_router`) each select from the same bank of 133 effects. These are
 blended additively through `blend_add1` and `blend_add2`, then passed
 through `blend_level` for final output scaling. The auto-rotate system
 randomly selects 3 different effects per switch event, so the output is
@@ -260,7 +288,7 @@ precision.
 
 ```bash
 # From a video frame (vision input)
-python generate_effect.py --from-frame reference/frames/frame_05.jpg --name "Plasma Web"
+python generate_effect.py --from-frame reference/canonical_effects_frames/cluster_05.jpg --name "Plasma Web"
 
 # From text description
 python generate_effect.py --describe "glitchy RGB channel separation with scan lines"
@@ -373,9 +401,11 @@ The auto-rotate system cycles effects with the following parameters:
 The 3-layer additive compositing system produces a combinatorial state space
 so vast it becomes practically infinite.
 
-**Discrete combinations.** The auto-rotate system selects 3 effects from 43
-via `random.sample(range(43), 3)`. Since additive compositing is commutative
-(L1 + L2 + L3 = L3 + L1 + L2), the selection is unordered:
+**Discrete combinations.** The auto-rotate system selects 3 effects via
+`random.sample(range(N), 3)`, where N is counted live from the router's
+connected inputs. Since additive compositing is commutative
+(L1 + L2 + L3 = L3 + L1 + L2), the selection is unordered. As performed at
+the summit (N = 43):
 
 > C(43, 3) = 43! / (3! × 40!) = **12,341** unique effect combinations
 
@@ -396,6 +426,16 @@ At 60 fps, that is ~2.61 × 10¹⁹ frames. To exhaust every state once:
 > 6.4 × 10³⁷ / 2.61 × 10¹⁹ ≈ **2.5 × 10¹⁸ universe lifetimes**
 
 That is roughly **2.5 quintillion ages of the universe**.
+
+**The current production network.** The post-summit Gen3 expansion brings
+the wired effect count to 133, and the same math scales accordingly:
+
+> C(133, 3) = **383,306** unique effect combinations
+> 383,306 × 5.19 × 10³³ ≈ **2.0 × 10³⁹** instantaneous visual states
+> ≈ **7.6 × 10¹⁹ universe lifetimes** to exhaust at 60 fps
+
+The auto-rotate script counts connected router inputs at runtime, so the
+state space grows automatically every time a new effect is wired in.
 
 ### What the Conservative Estimate Ignores
 
@@ -428,11 +468,11 @@ between switches.
 Every frame of Yousuke output has almost certainly never existed before and
 will never exist again. The system does not cycle through a playlist of
 looks — it occupies a state space so large that exhaustive traversal would
-require 2.5 quintillion universe lifetimes. This was never specified as a
+require quintillions of universe lifetimes. This was never specified as a
 design goal. It is an emergent property of three architectural decisions:
-43 effects, 3-layer compositing, and 7 continuous audio parameters. The
-AI agents that built this system created a combinatorial explosion they
-cannot comprehend.
+a large effect bank, 3-layer compositing, and 7 continuous audio
+parameters. The AI agents that built this system created a combinatorial
+explosion they cannot comprehend.
 
 ---
 
@@ -445,9 +485,15 @@ cannot comprehend.
 | Original GLSL shaders | 21 | AI-generated from source video analysis |
 | Mutation GLSL shaders | 21 | AI-generated variations of originals |
 | Canon shards | 1 | Vision-verified canonical effect |
+| Gen3 GLSL shaders | 90 | Post-summit body-contour & hybrid expansion |
 | Hand-coded Python effects | 8 | Initial prototypes |
 | AI-generated Python effects | 21 | Claude-generated plugins |
 | Canonical Python effects | 2 | Cluster-derived plugins |
+
+The 43 summit-era GLSL effects (21 + 21 + 1) were the bank performed on
+April 30, 2026. The 90 Gen3 effects were generated and wired in afterwards
+(May 13, 2026) via `tools/td_build_gen3.py`, bringing the production
+network to 133 wired effects per router.
 
 ### Original GLSL Shaders (21)
 
@@ -505,6 +551,17 @@ cannot comprehend.
 
 Index 42 in the TD router. A vision-verified canonical effect derived
 from cluster analysis of the source video.
+
+### Gen3 Shaders (90, post-summit)
+
+Added May 13, 2026 — a third generation focused on body-contour and
+silhouette treatments (33 `body_*` effects: neon outlines, laser scans,
+holograms, x-ray/thermal/comic contours, kaleidoscope and starfield
+silhouettes) plus hybrid palette families (`arctic_*`, `blood_*`,
+`cyber_*`, `ocean_*`, `pastel_*`, `fire_*`) and intensified variants
+(`extreme_*`, `hyper_*`, `mega_*`, `turbo_*`, `ultra_*`) recombining the
+original effect DNA: datamosh, kaleido, plasma, solarize, strobe, echo,
+shatter, and matrix elements. All 90 live at router indices 43–132.
 
 Full effect reference with audio mappings, generation methods, and
 performance data: [docs/EFFECTS_CATALOG.md](docs/EFFECTS_CATALOG.md)
@@ -589,7 +646,7 @@ python standalone/visuals.py --mode file \
 export ANTHROPIC_API_KEY=sk-ant-api03-...
 
 # From a video frame (Claude vision input)
-python generate_effect.py --from-frame reference/frames/frame_05.jpg \
+python generate_effect.py --from-frame reference/canonical_effects_frames/cluster_05.jpg \
     --name "Plasma Web"
 
 # From text description
@@ -625,10 +682,13 @@ python analyze_video.py --video /path/to/set.mp4 --output /path/to/effects.json
 ```
 Yousuke/
 ├── README.md                          # This document
+├── ARTIST_STATEMENT.md                # Why this piece exists
 ├── ARCHITECTURE.md                    # Technical system architecture
 ├── PROCESS.md                         # Narrative of the AI-driven build
 ├── CONTRIBUTING.md                    # How to extend the system
 ├── LICENSE                            # MIT
+│
+├── media/                             # Performance stills (Apr 30, 2026)
 │
 ├── AIPSummitYousuke.36.toe           # Production TouchDesigner network
 ├── analyze_video.py                   # Video analysis + k-means clustering
@@ -660,7 +720,7 @@ Yousuke/
 │   ├── td_build_chaos.py              # Build Chaos Engine variant
 │   ├── td_build_contour.py            # Build contour effect via MCP
 │   ├── td_build_gen3.py               # Build Gen3 effects via MCP
-│   ├── td_wire_all.py                 # Wire all 43 effects to 3-router topology
+│   ├── td_wire_all.py                 # Wire all effects to 3-router topology
 │   ├── td_wire_effects.py             # Wire individual effects
 │   ├── td_wire_contour.py             # Wire contour effect
 │   ├── td_wire_everything.py          # Wire complete network

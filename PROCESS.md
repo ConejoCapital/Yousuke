@@ -93,7 +93,8 @@ def fx_function(frame, af, state) -> np.ndarray:
 Before generating any AI content, the system needed a comprehensive test
 suite to validate that generated effects would work correctly.
 
-**96 tests were written across 7 test files:**
+**96 tests were written across 7 test files** (the Phase B scaffold; the
+suite has since grown to 234 tests as effects were added):
 
 | File | Tests | Coverage |
 |------|-------|----------|

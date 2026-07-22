@@ -20,7 +20,7 @@ All operators live under `/project1/`.
 | Path | Type | Purpose |
 |------|------|---------|
 | `/project1/audio_analysis` | baseCOMP | Container for spectral analysis chain |
-| `/project1/audio_analysis/out1` | outCHOP | Exposes 7 normalized channels (0-1): `rms`, `sub_bass`, `bass`, `mids`, `highs`, `beat`, `onset` |
+| `/project1/audio_analysis/out1` | outCHOP | Exposes 6 normalized channels (0-1): `rms`, `sub_bass`, `bass`, `mids`, `highs`, `beat` (`onset` exists only in the Python standalone) |
 
 Internal analysis chain:
 - `audiospectrumCHOP` (FFT size=512, output length=256, timeslice=ON)
@@ -107,19 +107,21 @@ baseCOMP
 ### 3-Layer Compositing Chain
 
 ```
-effect_router (switchTOP, 43 inputs)  ─┐
+effect_router (switchTOP, 133 inputs) ─┐
                                         ├── blend_add1 (compositetTOP, add mode)
-layer2_router (switchTOP, 43 inputs)  ─┘
+layer2_router (switchTOP, 133 inputs) ─┘
                                               │
-layer3_router (switchTOP, 43 inputs)  ────── blend_add2 (compositeTOP, add mode)
+layer3_router (switchTOP, 133 inputs) ────── blend_add2 (compositeTOP, add mode)
                                               │
                                         blend_level (levelTOP, output scaling)
                                               │
                                         main_output (windowCOMP, 1280x720)
 ```
 
-All three routers have the same 43 effects wired. The auto-rotate system
-picks 3 different random effects per switch event using
+All three routers have the same 133 effects wired (indices 0–42 are the
+summit-era bank documented in the tables above; 43–132 are the post-summit
+Gen3 effects, `fx_g3_*`). The auto-rotate system counts connected inputs at
+runtime and picks 3 different random effects per switch event using
 `random.sample(range(N), 3)`, assigning one to each router. The result is
 always a layered composite of three independent visual streams.
 
@@ -137,7 +139,7 @@ always a layered composite of three independent visual streams.
 
 ### Common Header
 
-All 43 GLSL shaders share a common header that defines audio uniforms and
+All GLSL shaders share a common header that defines audio uniforms and
 utility functions:
 
 ```glsl
@@ -207,16 +209,22 @@ audio_in (audiodeviceinCHOP)
     │
     ├── beatCHOP → beat trigger channel
     │
-    ├── selectCHOP → band filters
-    │     sub_bass: bins 0-80 Hz
-    │     bass:     bins 80-300 Hz
-    │     mids:     bins 300-3000 Hz
-    │     highs:    bins 3000+ Hz
+    ├── scriptCHOP (band_extract) → band averaging
+    │     sub_bass: 0-80 Hz    (bin 0)
+    │     bass:     80-300 Hz  (bins 1-3)
+    │     mids:     300-3000 Hz (bins 4-34)
+    │     highs:    3000+ Hz   (bins 35-255)
     │
-    └── mergeCHOP → outCHOP
-          Channels: rms, sub_bass, bass, mids, highs, beat, onset
+    └── outCHOP (out1)
+          Channels: rms, sub_bass, bass, mids, highs, beat
           All normalized to [0, 1]
 ```
+
+Note: the TD path exposes 6 channels — there is no `onset` channel in the
+TD network. The `onset` parameter exists only in the Python standalone's
+`AudioFeatures`. The onset-trigger branch in the TD `auto_rotate` script
+guards against the missing channel and is dormant; TD switching is driven
+by the 1.5 s timer and the 5-beat counter.
 
 ### Python Standalone Path
 

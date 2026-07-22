@@ -2,15 +2,17 @@
 
 ## What This Is
 
-Yousuke is a conceptual audio visual art piece built for AI Psychosis Summit
-NYC (April 30, 2026). It takes live audio + camera input and drives 43 GLSL
-pixel shaders through a 3-layer additive compositing system, producing
-~6.4 x 10^37 possible visual states.
+Yousuke is a conceptual audio visual art piece built for (and performed at)
+AI Psychosis Summit NYC (April 30, 2026). It takes live audio + camera
+input and drives a bank of GLSL pixel shaders through a 3-layer additive
+compositing system. The summit-night network had 43 effects (~6.4 x 10^37
+states); the current production `.toe` has 133 wired effects (~2.0 x 10^39
+states) after the post-summit Gen3 expansion.
 
 ## Architecture
 
 - **TouchDesigner** (`AIPSummitYousuke.36.toe`) — Production GPU pipeline.
-  43 GLSL shaders in baseCOMPs, 3-layer additive compositing via
+  133 GLSL shaders in baseCOMPs, 3-layer additive compositing via
   `effect_router` / `layer2_router` / `layer3_router`, frequency-band
   prominence, beat-driven auto-rotation.
 - **Python standalone** (`standalone/visuals.py`) — Runs on any laptop.
@@ -19,11 +21,16 @@ pixel shaders through a 3-layer additive compositing system, producing
 
 ## Key Numbers
 
-- 43 GLSL shaders in TouchDesigner (21 original + 21 mutations + 1 canon shard)
+- 133 GLSL shaders wired in TouchDesigner (21 original + 21 mutations +
+  1 canon shard = 43 summit-era, + 90 Gen3 added post-summit)
 - 31 Python effects in standalone (8 hand-coded + 21 AI-generated + 2 canonical)
-- 7 audio parameters: rms, sub_bass, bass, mids, highs, beat, onset
-- 3-layer additive compositing (commutative: C(43,3) = 12,341 combinations)
-- ~6.4 x 10^37 total visual states (~2.5 quintillion universe lifetimes)
+- 7 audio parameters in the Python standalone: rms, sub_bass, bass, mids,
+  highs, beat, onset. The TD `audio_analysis/out1` CHOP exposes 6 (no
+  onset) — the onset branch in `auto_rotate` is dormant by design.
+- 3-layer additive compositing (commutative: C(133,3) = 383,306
+  combinations; C(43,3) = 12,341 as performed at the summit)
+- ~2.0 x 10^39 total visual states in the current network (~6.4 x 10^37 as
+  performed)
 
 ## How to Run
 
@@ -50,6 +57,7 @@ Requires TouchDesigner running with twozero MCP bridge on `localhost:40404`.
 ```bash
 python tools/td_build_effects.py      # 21 original GLSL shaders
 python tools/td_build_mutations.py    # 21 mutation GLSL shaders
+python tools/td_build_gen3.py         # 90 Gen3 GLSL shaders
 python tools/td_wire_all.py           # Wire to 3-router topology
 python tools/td_add_prominence.py     # Audio-driven opacity
 python tools/td_update_rotation.py    # Auto-rotate script
@@ -59,7 +67,7 @@ python tools/td_update_rotation.py    # Auto-rotate script
 
 ```bash
 export ANTHROPIC_API_KEY=sk-ant-...
-python generate_effect.py --from-frame reference/frames/frame_05.jpg --name "Effect Name"
+python generate_effect.py --from-frame reference/canonical_effects_frames/cluster_05.jpg --name "Effect Name"
 python generate_effect.py --describe "description of desired visual effect"
 ```
 
@@ -89,7 +97,7 @@ python generate_effect.py --describe "description of desired visual effect"
 - Effect validation: syntax check, export check, test run, shape match
 - TD build scripts use `tools/td_mcp.py` for MCP bridge calls
 - The 8 original hand-coded effects in `effects/` are pre-canonical-analysis
-  prototypes; the 43 GLSL shaders in TD reflect the corrected visual grammar
+  prototypes; the GLSL shaders in TD reflect the corrected visual grammar
 
 ## Archived Documents
 
@@ -106,4 +114,4 @@ Archived (have banners):
 
 Historical reference (no banners, accurate for their era):
 - `docs/PHASE_B_REPORT.md` — Phase B test report (96 tests at that time)
-- `reference/EFFECTS_CATALOG.md` — Full 43-effect catalog
+- `docs/EFFECTS_CATALOG.md` — Full effect catalog

@@ -34,6 +34,10 @@ def call(method, arguments=None):
     return "\n".join(texts)
 
 
+# Alias matching the name used in docs and build-script conventions
+td_call = call
+
+
 def main():
     if len(sys.argv) < 2:
         print("Usage: td_mcp.py <tool_name> [json_args]")

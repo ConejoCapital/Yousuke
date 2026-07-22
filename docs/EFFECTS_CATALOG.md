@@ -174,3 +174,39 @@ of 1,871 frames from the source video. Full details in
 | 5 | Dark atmospheric macro | ~4% | macro_zoom <- energy, bokeh_size <- mids |
 | 6 | Pixel-sort radial shards | ~3% | shard_length <- onset, radial_velocity <- kick |
 | 7 | Feedback echo tunnel | ~7% | feedback_gain <- sub_bass, zoom_step <- beat |
+
+---
+
+## Gen3 GLSL Shaders (90, post-summit)
+
+Added May 13, 2026 via `tools/td_build_gen3.py` — a third generation
+expanding the bank from 43 to 133 wired effects (router indices 43-132).
+Three families:
+
+**Body-contour & silhouette treatments (33)** — `fx_g3_body_*`:
+aura_glow, blueprint, comic_contour, cyberpunk_contour, double_edge,
+electric_wire, fire_outline, fire_sil, ghost_sil, glitch_edge, glitch_sil,
+gradient_sil, heat_contour, hologram, invert_sil, kaleidoscope_sil,
+laser_scan, matrix_edge, mirror_contour, neon_fill, neon_outline,
+ocean_sil, particle_edge, pixel_sil, plasma_edge, pulse_edge, rainbow_sil,
+shadow_play, solid_silhouette, starfield_sil, strobe_edge, thermal_contour,
+xray_contour.
+
+**Palette families (24)** — recolored recombinations:
+arctic_{echo, pixel, radial, triangle}, blood_{chromatic, fire, glitch,
+strobe}, cyber_{confetti, datamosh, kaleido, skeleton}, ocean_{liquify,
+plasma, solarize, thermal}, pastel_{feedback, matrix, pixelate, rainbow},
+fire_{kaleido, rgb}, plus glitch_solar and solar_skeleton.
+
+**Intensified & hybrid variants (33)** — antigrav_confetti,
+chromatic_kaleido, confetti_spiral, datamosh_confetti, echo_plasma,
+echo_shatter, extreme_{kaleido, rgb, zoom}, hyper_{confetti, glitch},
+kaleido_mosh, liquid_matrix, matrix_rgb, mega_{echo, shatter, tentacles},
+micro_pixel, pixel_{neon, radial}, plasma_skeleton, radial_shatter,
+rainbow_mosh, spiral_glitch, strobe_liquid, super_datamosh,
+thermal_spiral, turbo_{matrix, neon, spiral}, ultra_{fire, solarize,
+strobe}.
+
+All Gen3 shaders use the same `uAudio` / `uAudio2` uniform header and
+`inTOP -> glslTOP -> levelTOP -> outTOP` baseCOMP structure as the
+summit-era bank.
