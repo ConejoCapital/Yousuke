@@ -19,16 +19,16 @@ mediapipe>=0.10.0
 moderngl>=5.9.0
 pygame>=2.5.0
 
-# Video download (for download_video.py)
+# Video download (for pipeline/download_video.py)
 yt-dlp>=2024.1.0
 
 # AI effect generation
 anthropic>=0.30.0
 
-# Video frame analysis (analyze_video.py)
+# Video frame analysis (pipeline/analyze_video.py)
 scikit-learn>=1.4.0
 
-# Progress bars (analyze_video.py, generate_effect.py)
+# Progress bars (pipeline/analyze_video.py, pipeline/generate_effect.py)
 tqdm>=4.66.0
 
 # Test suite

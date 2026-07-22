@@ -125,7 +125,7 @@ effective 85 FPS — well within the 33.3ms budget for 30 FPS.
 
 ### The Pipeline
 
-`analyze_video.py` was built to objectively analyze the source video's
+`pipeline/analyze_video.py` was built to objectively analyze the source video's
 visual language. It operates in 5 stages:
 
 1. **Frame sampling** — Seek to every 3 seconds, extract 1,871 frames
@@ -180,7 +180,7 @@ The 7 consolidated canonical techniques:
 6. Pixel-sort radial shards (~3%)
 7. Feedback echo tunnel (~7%)
 
-Full catalog: [reference/CANONICAL_CATALOG.md](reference/CANONICAL_CATALOG.md)
+Full catalog: [reference/CANONICAL_CATALOG.md](../reference/CANONICAL_CATALOG.md)
 
 ---
 
@@ -220,7 +220,7 @@ extraction works best as a collaboration, not an automation.
 
 ### The Generation Pipeline
 
-`generate_effect.py` uses Claude Opus 4.7 to write runnable effect code.
+`pipeline/generate_effect.py` uses Claude Opus 4.7 to write runnable effect code.
 It supports four modes:
 
 1. **From frame** — Vision input: a screenshot is sent as a base64-encoded
@@ -330,7 +330,7 @@ After each build phase:
 - `td_get_perf` — FPS check (target: >=30)
 - `td_get_screenshot` — Visual inspection of output
 
-The production `.toe` file (AIPSummitYousuke.36.toe) passed all
+The production `.toe` file (touchdesigner/AIPSummitYousuke.36.toe) passed all
 verification gates with 0 compile errors and 60 FPS at 0.2% CPU on a
 MacBook Pro.
 

@@ -112,16 +112,16 @@ Output via `fragColor = TDOutputSwizzle(vec4(result, 1.0));`
 export ANTHROPIC_API_KEY=sk-ant-api03-...
 
 # From a video frame (best quality — uses Claude vision)
-python generate_effect.py --from-frame path/to/frame.jpg --name "Effect Name"
+python pipeline/generate_effect.py --from-frame path/to/frame.jpg --name "Effect Name"
 
 # From text description
-python generate_effect.py --describe "visual description here"
+python pipeline/generate_effect.py --describe "visual description here"
 
 # Extend an existing effect
-python generate_effect.py --extend existing_effect_name
+python pipeline/generate_effect.py --extend existing_effect_name
 
 # From canonical catalog entry
-python generate_effect.py --from-canonical reference/canonical_effects.json --id 7
+python pipeline/generate_effect.py --from-canonical reference/canonical_effects.json --id 7
 ```
 
 Generated effects are validated automatically (syntax, exports, test run,

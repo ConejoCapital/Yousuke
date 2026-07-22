@@ -5,7 +5,7 @@ Samples frames from the reference video, extracts visual features,
 clusters them with k-means, and writes canonical_effects.json.
 
 Usage:
-    python analyze_video.py [--video PATH] [--interval N] [--clusters N] [--output PATH]
+    python pipeline/analyze_video.py [--video PATH] [--interval N] [--clusters N] [--output PATH]
 
 Defaults:
     --video     reference/video.mp4
@@ -412,7 +412,7 @@ def main():
     print(f"  Output:        {output_path}  ({len(catalog_effects)} effects, {json_size_kb:.1f} KB)")
     print(f"  Frames saved:  {frames_dir}  ({len(catalog_effects)} JPEGs, {frames_mb:.1f} MB)")
     print()
-    print(f"  Use with:  python generate_effect.py --from-canonical {output_path} --id 0")
+    print(f"  Use with:  python pipeline/generate_effect.py --from-canonical {output_path} --id 0")
 
 
 if __name__ == "__main__":

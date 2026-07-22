@@ -16,7 +16,7 @@
 set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 VENV="$SCRIPT_DIR/.venv/bin"
-TOE="$SCRIPT_DIR/AIPSummitYousuke.36.toe"
+TOE="$SCRIPT_DIR/touchdesigner/AIPSummitYousuke.36.toe"
 TD_APP="/Applications/TouchDesigner.app/Contents/MacOS/TouchDesigner"
 
 MODE="${1:-td}"
@@ -45,7 +45,7 @@ check_deps() {
 launch_td() {
     echo "→ Launching TouchDesigner..."
     if [ ! -f "$TOE" ]; then
-        echo "  ERROR: AIPSummitYousuke.36.toe not found at $TOE"
+        echo "  ERROR: touchdesigner/AIPSummitYousuke.36.toe not found at $TOE"
         exit 1
     fi
     if [ ! -f "$TD_APP" ]; then

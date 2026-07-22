@@ -120,5 +120,5 @@ man who decided, after brain surgery, that he would rather be a DJ.
 - **Press**: Reason, ["A Dispatch From the AI Psychosis Summit"](https://reason.com/2026/05/06/a-dispatch-from-the-ai-psychosis-summit/)
   and Business Insider, ["Inside NYC's AI Psychosis Summit"](https://www.businessinsider.com/inside-nyc-ai-psychosis-summit-party-anthropic-claude-code-2026-5)
 - **The summit**: [psychosis.nyc](https://psychosis.nyc/)
-- **How it was built**: [PROCESS.md](PROCESS.md),
-  [ARCHITECTURE.md](ARCHITECTURE.md), [README.md](README.md)
+- **How it was built**: [PROCESS.md](docs/PROCESS.md),
+  [ARCHITECTURE.md](docs/ARCHITECTURE.md), [README.md](README.md)

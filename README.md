@@ -112,7 +112,7 @@ hands, the human as the eye.
 **Can AI agents extract a human artist's live visual identity from video,
 reproduce it in TouchDesigner, and generate novel extensions?**
 
-The answer, documented in [PROCESS.md](PROCESS.md), is yes, with
+The answer, documented in [PROCESS.md](docs/PROCESS.md), is yes, with
 significant caveats about the indispensable role of human curation in the
 loop. Algorithmic clustering alone produced a statistically accurate but
 aesthetically misleading visual vocabulary. Human frame selection,
@@ -128,7 +128,7 @@ running live during the performance itself:
 
 ### Phase 1: Visual Identity Extraction via Computer Vision
 
-`analyze_video.py` samples the source video at regular intervals, extracts
+`pipeline/analyze_video.py` samples the source video at regular intervals, extracts
 a 19-float feature vector per frame (5 dominant colors via k-means on 64x64
 downsampled frames, edge density, brightness, saturation mean, color
 variance), clusters 1,871 sampled frames into 40 canonical style clusters
@@ -156,7 +156,7 @@ achieve alone.
 
 ### Phase 3: AI-Powered Effect Generation
 
-`generate_effect.py` uses Claude Opus 4.7 with vision input to generate
+`pipeline/generate_effect.py` uses Claude Opus 4.7 with vision input to generate
 GLSL pixel shaders and Python effect plugins. Each generated effect passes
 a 4-step validation pipeline (syntax check, required exports, test run,
 shape match) with a self-correcting retry loop that feeds errors back to the
@@ -279,7 +279,7 @@ The Python engine (`standalone/visuals.py`) uses a plugin architecture:
 ### 4.1 Video Analysis & Canonical Style Extraction
 
 ```bash
-python analyze_video.py --interval 3 --clusters 40
+python pipeline/analyze_video.py --interval 3 --clusters 40
 ```
 
 The pipeline operates in 5 stages:
@@ -327,16 +327,16 @@ precision.
 
 ```bash
 # From a video frame (vision input)
-python generate_effect.py --from-frame reference/canonical_effects_frames/cluster_05.jpg --name "Plasma Web"
+python pipeline/generate_effect.py --from-frame reference/canonical_effects_frames/cluster_05.jpg --name "Plasma Web"
 
 # From text description
-python generate_effect.py --describe "glitchy RGB channel separation with scan lines"
+python pipeline/generate_effect.py --describe "glitchy RGB channel separation with scan lines"
 
 # Extend an existing effect
-python generate_effect.py --extend neon_contour --name "Kanji Storm"
+python pipeline/generate_effect.py --extend neon_contour --name "Kanji Storm"
 
 # From canonical catalog entry
-python generate_effect.py --from-canonical reference/canonical_effects.json --id 7
+python pipeline/generate_effect.py --from-canonical reference/canonical_effects.json --id 7
 ```
 
 Every generated effect passes 4 validation checks before being saved:
@@ -687,7 +687,7 @@ Requires TouchDesigner 2025.32460+ (free license from
 bash scripts/launch_summit.sh --mode td
 
 # Or open directly
-open AIPSummitYousuke.36.toe
+open touchdesigner/AIPSummitYousuke.36.toe
 ```
 
 In TouchDesigner:
@@ -720,17 +720,17 @@ audio file without restarting.
 export ANTHROPIC_API_KEY=sk-ant-api03-...
 
 # From a video frame (Claude vision input)
-python generate_effect.py --from-frame reference/canonical_effects_frames/cluster_05.jpg \
+python pipeline/generate_effect.py --from-frame reference/canonical_effects_frames/cluster_05.jpg \
     --name "Plasma Web"
 
 # From text description
-python generate_effect.py --describe "geometric kaleidoscope that pulses on bass"
+python pipeline/generate_effect.py --describe "geometric kaleidoscope that pulses on bass"
 
 # Extend an existing effect
-python generate_effect.py --extend neon_contour --name "Kanji Storm"
+python pipeline/generate_effect.py --extend neon_contour --name "Kanji Storm"
 
 # From canonical catalog
-python generate_effect.py --from-canonical reference/canonical_effects.json --id 7
+python pipeline/generate_effect.py --from-canonical reference/canonical_effects.json --id 7
 ```
 
 Generated effects are saved to `effects/ai_generated/` and auto-discovered
@@ -740,13 +740,13 @@ by the plugin loader at next startup.
 
 ```bash
 # Default: 10s interval, 20 clusters
-python analyze_video.py
+python pipeline/analyze_video.py
 
 # High-resolution scan
-python analyze_video.py --interval 5 --clusters 30
+python pipeline/analyze_video.py --interval 5 --clusters 30
 
 # Custom paths
-python analyze_video.py --video /path/to/set.mp4 --output /path/to/effects.json
+python pipeline/analyze_video.py --video /path/to/set.mp4 --output /path/to/effects.json
 ```
 
 ---
@@ -757,22 +757,24 @@ python analyze_video.py --video /path/to/set.mp4 --output /path/to/effects.json
 Yousuke/
 ├── README.md                          # This document
 ├── ARTIST_STATEMENT.md                # Why this piece exists
-├── ARCHITECTURE.md                    # Technical system architecture
-├── PROCESS.md                         # Narrative of the AI-driven build
-├── CONTRIBUTING.md                    # How to extend the system
 ├── LICENSE                            # MIT
-│
-├── media/                             # Performance stills (Apr 30, 2026)
-│
-├── AIPSummitYousuke.36.toe           # Production TouchDesigner network
-├── analyze_video.py                   # Video analysis + k-means clustering
-├── generate_effect.py                 # AI effect generation (Claude API)
-├── download_video.py                  # Reference video downloader
+├── CLAUDE.md                          # Project context for AI agents
 ├── pytest.ini                         # Test configuration
+│
+├── touchdesigner/
+│   ├── AIPSummitYousuke.36.toe        # The piece: production TD network
+│   └── README_FOR_HERMES.md           # Hermes TD build instructions
 │
 ├── standalone/
 │   ├── visuals.py                     # Python standalone visual engine
 │   └── requirements.txt               # Python dependencies
+│
+├── pipeline/
+│   ├── analyze_video.py               # Video analysis + k-means clustering
+│   ├── generate_effect.py             # AI effect generation (Claude API)
+│   └── download_video.py              # Reference video downloader
+│
+├── media/                             # Performance stills (Apr 30, 2026)
 │
 ├── effects/
 │   ├── __init__.py                    # Plugin loader
@@ -831,16 +833,16 @@ Yousuke/
 │   ├── setup.sh                       # Environment setup
 │   └── launch_summit.sh               # One-command summit launch
 │
-├── docs/
-│   ├── EFFECTS_CATALOG.md             # Complete effects reference
-│   ├── PRODUCT_DOC.md                 # Original product specification
-│   ├── SUMMIT_README.md               # Summit-day operational guide
-│   ├── HERMES_PROMPT.md               # Hermes session kickoff prompt
-│   ├── PHASE_B_REPORT.md              # Test scaffold + engine hardening report
-│   └── PHASE_D_PLAN.md               # TouchDesigner build plan
-│
-└── touchdesigner/
-    └── README_FOR_HERMES.md           # Hermes TD build instructions
+└── docs/
+    ├── ARCHITECTURE.md                # Technical system architecture
+    ├── PROCESS.md                     # Narrative of the AI-driven build
+    ├── CONTRIBUTING.md                # How to extend the system
+    ├── EFFECTS_CATALOG.md             # Complete effects reference
+    ├── PRODUCT_DOC.md                 # Original product specification (archived)
+    ├── SUMMIT_README.md               # Summit-day operational guide (archived)
+    ├── HERMES_PROMPT.md               # Hermes session kickoff prompt (archived)
+    ├── PHASE_B_REPORT.md              # Phase B test report (historical)
+    └── PHASE_D_PLAN.md                # TouchDesigner build plan (archived)
 ```
 
 ---

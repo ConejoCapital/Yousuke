@@ -4,11 +4,11 @@
 Uses Claude API to write new runnable effect functions.
 
 Usage:
-    python generate_effect.py --from-frame reference/frames/frame_05.jpg --name "Plasma Web"
-    python generate_effect.py --describe "glitchy RGB channel separation with scan lines"
-    python generate_effect.py --extend neon_contour
-    python generate_effect.py --from-canonical reference/canonical_effects.json --id 7
-    python generate_effect.py --describe "..." --model claude-sonnet-4-5
+    python pipeline/generate_effect.py --from-frame reference/canonical_effects_frames/cluster_05.jpg --name "Plasma Web"
+    python pipeline/generate_effect.py --describe "glitchy RGB channel separation with scan lines"
+    python pipeline/generate_effect.py --extend neon_contour
+    python pipeline/generate_effect.py --from-canonical reference/canonical_effects.json --id 7
+    python pipeline/generate_effect.py --describe "..." --model claude-sonnet-4-5
 
 Requires:
     export ANTHROPIC_API_KEY=sk-ant-...
@@ -114,7 +114,7 @@ def preflight_check(args) -> bool:
         errors.append(f"Frame not found: {args.from_frame}")
 
     if args.extend:
-        p = Path(__file__).parent / "effects" / f"{args.extend}.py"
+        p = Path(__file__).parent.parent / "effects" / f"{args.extend}.py"
         if not p.exists():
             errors.append(f"Effect to extend not found: {p}")
 
@@ -177,7 +177,7 @@ def build_prompt(args, prior_error: Optional[str] = None,
         )
 
     elif args.extend:
-        effect_path = Path(__file__).parent / "effects" / f"{args.extend}.py"
+        effect_path = Path(__file__).parent.parent / "effects" / f"{args.extend}.py"
         existing_code = effect_path.read_text()
         frame_b64 = None
         user_content = (
@@ -384,7 +384,7 @@ def save_effect(code: str, name: str) -> Path:
     slug      = re.sub(r"[^a-z0-9]+", "_", name.lower()).strip("_")[:30]
     filename  = f"effect_{timestamp}_{slug}.py"
 
-    out_dir = Path(__file__).parent / "effects" / "ai_generated"
+    out_dir = Path(__file__).parent.parent / "effects" / "ai_generated"
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / filename
     out_path.write_text(code, encoding="utf-8")

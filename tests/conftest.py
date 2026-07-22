@@ -11,10 +11,11 @@ import pytest
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 STANDALONE_DIR = PROJECT_ROOT / "standalone"
+PIPELINE_DIR = PROJECT_ROOT / "pipeline"
 EFFECTS_DIR = PROJECT_ROOT / "effects"
 
 # Make standalone/ + effects/ importable
-for p in (str(PROJECT_ROOT), str(STANDALONE_DIR)):
+for p in (str(PROJECT_ROOT), str(STANDALONE_DIR), str(PIPELINE_DIR)):
     if p not in sys.path:
         sys.path.insert(0, p)
 

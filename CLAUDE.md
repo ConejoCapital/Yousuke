@@ -12,7 +12,7 @@ effects (~2.0 x 10^39 states). The `.toe` was committed May 13, 2026.
 
 ## Architecture
 
-- **TouchDesigner** (`AIPSummitYousuke.36.toe`) — Production GPU pipeline.
+- **TouchDesigner** (`touchdesigner/AIPSummitYousuke.36.toe`) — Production GPU pipeline.
   133 GLSL shaders in baseCOMPs, 3-layer additive compositing via
   `effect_router` / `layer2_router` / `layer3_router`, frequency-band
   prominence, beat-driven auto-rotation.
@@ -41,7 +41,7 @@ effects (~2.0 x 10^39 states). The `.toe` was committed May 13, 2026.
 python standalone/visuals.py --mode webcam --audio mic
 
 # TouchDesigner
-open AIPSummitYousuke.36.toe
+open touchdesigner/AIPSummitYousuke.36.toe
 ```
 
 ## How to Test
@@ -69,8 +69,8 @@ python tools/td_update_rotation.py    # Auto-rotate script
 
 ```bash
 export ANTHROPIC_API_KEY=sk-ant-...
-python generate_effect.py --from-frame reference/canonical_effects_frames/cluster_05.jpg --name "Effect Name"
-python generate_effect.py --describe "description of desired visual effect"
+python pipeline/generate_effect.py --from-frame reference/canonical_effects_frames/cluster_05.jpg --name "Effect Name"
+python pipeline/generate_effect.py --describe "description of desired visual effect"
 ```
 
 ## File Organization
@@ -79,11 +79,13 @@ python generate_effect.py --describe "description of desired visual effect"
 |------|---------|
 | `README.md` | Canonical project documentation |
 | `ARTIST_STATEMENT.md` | The artist's intent, in his voice (no AI wording, no em dashes) |
+| `touchdesigner/AIPSummitYousuke.36.toe` | The piece: production TD network |
 | `media/` | Performance stills from April 30, 2026 |
-| `ARCHITECTURE.md` | Technical system architecture reference |
-| `PROCESS.md` | Narrative of the AI-driven build process |
-| `CONTRIBUTING.md` | How to extend the system |
+| `docs/ARCHITECTURE.md` | Technical system architecture reference |
+| `docs/PROCESS.md` | Narrative of the AI-driven build process |
+| `docs/CONTRIBUTING.md` | How to extend the system |
 | `standalone/visuals.py` | Python standalone visual engine |
+| `pipeline/` | Analysis, generation, and download scripts |
 | `effects/` | 8 hand-coded Python effect plugins |
 | `effects/ai_generated/` | 21 AI-generated Python effects |
 | `effects/canonical/` | 2 vision-verified canonical Python effects |
@@ -91,7 +93,7 @@ python generate_effect.py --describe "description of desired visual effect"
 | `tools/td_mcp.py` | MCP bridge helper — `from tools.td_mcp import td_call` |
 | `reference/` | Canonical catalog, cluster frames, generation plan |
 | `tests/` | 7 test modules, 234 tests |
-| `docs/` | Archived specs and reports (see banners) |
+| `docs/` | Current tech docs + archived specs and reports (see banners) |
 
 ## Conventions
 
@@ -107,7 +109,7 @@ python generate_effect.py --describe "description of desired visual effect"
 
 Files in `docs/` with "ARCHIVED" banners describe the earlier 8-effect
 system. They are kept for historical reference. The current system is
-documented in `README.md` and `ARCHITECTURE.md`.
+documented in `README.md` and `docs/ARCHITECTURE.md`.
 
 Archived (have banners):
 - `docs/PRODUCT_DOC.md` — Original product spec (pre-expansion)

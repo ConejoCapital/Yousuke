@@ -2,8 +2,8 @@
 """
 ¥ØUSUK€ Visual Extender — Video download + metadata + frame extraction
 Usage:
-    python download_video.py              # full run
-    python download_video.py --frames-only  # only extract frames from existing video
+    python pipeline/download_video.py              # full run
+    python pipeline/download_video.py --frames-only  # only extract frames from existing video
 """
 
 import argparse
@@ -16,7 +16,7 @@ from pathlib import Path
 # ── Config ────────────────────────────────────────────────────────────────────
 VIDEO_ID   = "CxflYGeSx7Q"
 VIDEO_URL  = f"https://www.youtube.com/watch?v={VIDEO_ID}"
-BASE_DIR   = Path(__file__).parent / "reference"
+BASE_DIR   = Path(__file__).parent.parent / "reference"
 VIDEO_PATH = BASE_DIR / "video.mp4"
 AUDIO_PATH = BASE_DIR / "audio.mp3"
 FRAMES_DIR = BASE_DIR / "frames"
@@ -326,7 +326,7 @@ def main():
     print("")
     if not dl_ok:
         print("  NOTE: Video download failed. Other files that depend on the video were skipped.")
-        print("  You can retry: python download_video.py")
+        print("  You can retry: python pipeline/download_video.py")
 
 
 if __name__ == "__main__":
