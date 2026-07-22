@@ -2,12 +2,13 @@
 
 ## What This Is
 
-Yousuke is a conceptual audio visual art piece built for (and performed at)
-AI Psychosis Summit NYC (April 30, 2026). It takes live audio + camera
-input and drives a bank of GLSL pixel shaders through a 3-layer additive
-compositing system. The summit-night network had 43 effects (~6.4 x 10^37
-states); the current production `.toe` has 133 wired effects (~2.0 x 10^39
-states) after the post-summit Gen3 expansion.
+Yousuke is a conceptual audio visual responsive art piece built for (and
+performed at) AI Psychosis Summit NYC (April 30, 2026). It takes live
+audio + camera input and drives a bank of GLSL pixel shaders through a
+3-layer additive compositing system. The piece entered the summit with 43
+effects (~6.4 x 10^37 states) and was expanded live — Gen3 generation ran
+during the performance itself — ending the night at the current 133 wired
+effects (~2.0 x 10^39 states). The `.toe` was committed May 13, 2026.
 
 ## Architecture
 
@@ -22,7 +23,8 @@ states) after the post-summit Gen3 expansion.
 ## Key Numbers
 
 - 133 GLSL shaders wired in TouchDesigner (21 original + 21 mutations +
-  1 canon shard = 43 summit-era, + 90 Gen3 added post-summit)
+  1 canon shard = 43 core bank, + 90 Gen3 derivatives generated live
+  during the summit performance)
 - 31 Python effects in standalone (8 hand-coded + 21 AI-generated + 2 canonical)
 - 7 audio parameters in the Python standalone: rms, sub_bass, bass, mids,
   highs, beat, onset. The TD `audio_analysis/out1` CHOP exposes 6 (no

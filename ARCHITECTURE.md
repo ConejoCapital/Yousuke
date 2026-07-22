@@ -119,8 +119,9 @@ layer3_router (switchTOP, 133 inputs) ────── blend_add2 (compositeTO
 ```
 
 All three routers have the same 133 effects wired (indices 0–42 are the
-summit-era bank documented in the tables above; 43–132 are the post-summit
-Gen3 effects, `fx_g3_*`). The auto-rotate system counts connected inputs at
+core bank documented in the tables above; 43–132 are the Gen3 derivatives,
+`fx_g3_*`, generated live during the summit performance). The
+auto-rotate system counts connected inputs at
 runtime and picks 3 different random effects per switch event using
 `random.sample(range(N), 3)`, assigning one to each router. The result is
 always a layered composite of three independent visual streams.

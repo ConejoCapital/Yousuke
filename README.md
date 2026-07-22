@@ -1,12 +1,17 @@
-# YOUSUKE — Conceptual Audio Visual Art Piece Built with AI Agents
+# YOUSUKE — Conceptual Audio Visual Responsive Art Piece Built with AI Agents, Curated by Humans
 
-> A conceptual audio visual art piece whose GLSL effect bank, 3-layer
-> additive compositing, and 7 real-time audio parameters produce a
-> practically infinite state space — ~6.4 × 10³⁷ visual states as performed
-> at the AI Psychosis Summit NYC (43 effects), ~2.0 × 10³⁹ in the current
-> production network (133 effects). Built entirely by AI agents: Claude
-> Opus 4.7 (Anthropic) for effect generation and Hermes (Nous Research) for
-> TouchDesigner construction via MCP.
+> A conceptual audio visual responsive art piece whose GLSL effect bank,
+> 3-layer additive compositing, and 7 real-time audio parameters produce a
+> practically infinite state space. The piece walked into the AI Psychosis
+> Summit NYC with 43 effects (~6.4 × 10³⁷ visual states) and grew **live,
+> mid-performance** to 133 effects (~2.0 × 10³⁹ states) — the AI generating
+> new filters for an extra hour while the artist DJ'd. Built by AI agents:
+> Claude Opus 4.7 (Anthropic) for effect generation and Hermes (Nous
+> Research) for TouchDesigner construction via MCP. Curated, corrected, and
+> steered throughout by a human.
+>
+> *"The AI caught patterns I couldn't see, and I caught intent it couldn't
+> feel. Neither of us could have made this alone."*
 >
 > **Why this piece exists → [ARTIST_STATEMENT.md](ARTIST_STATEMENT.md)**
 
@@ -43,13 +48,17 @@ file), performs real-time spectral feature extraction, and drives a bank of
 GLSL pixel shaders that transform a camera feed into beat-synchronized
 visual output.
 
-The network performed at the summit carried 43 GLSL effects; its 3-layer
-additive compositing, driven by 7 real-time audio parameters, produced
-~6.4 × 10³⁷ possible visual states — roughly 2.5 quintillion universe
-lifetimes to exhaust at 60 fps. After the summit the effect bank was
-expanded with a third generation of 90 body-contour and hybrid effects,
-bringing the current production network to **133 wired effects** and
-~2.0 × 10³⁹ states.
+The effect bank itself was built in generations, each correcting the last.
+The first batch of AI-generated filters missed the aesthetic entirely.
+A second iteration — guided by human-selected screenshots of the source
+material — produced the 43-effect bank the piece brought to the summit
+(~6.4 × 10³⁷ possible visual states; roughly 2.5 quintillion universe
+lifetimes to exhaust at 60 fps). Then, about an hour before showtime, a
+third generation began: 90 derivative effects spun off from the 43, with
+the AI agents generating and wiring filters **while the performance was
+underway** — the artist DJing as the computer worked for an extra hour,
+the state space expanding live to **133 wired effects** and ~2.0 × 10³⁹
+states before the night ended.
 
 ### The Performance
 
@@ -76,12 +85,28 @@ The system is delivered on two parallel paths:
 ### The Inspiration
 
 The visual language is derived from
-**YOUSUKE YUKIMATSU's Boiler Room Tokyo x Super Dommune** set — a 93-minute
-live performance whose visual identity was analyzed, extracted, and extended
-through the pipeline described in this document.
+**¥ØU$UK€ ¥UK1MAT$U | Boiler Room Tokyo x Super Dommune** — with
+**visuals by Bridge** — a 1:33:30 live performance whose visual identity
+was analyzed, extracted, and extended through the pipeline described in
+this document.
 
 > "Zone in: it's Osaka spirit force YOUSUKE YUKIMATSU — live from
 > Dommune in Tokyo."
+
+That set is, to the artist, one of Yukimatsu's best performances paired
+with his best visuals — and the Yukimatsu × Bridge collaboration happened
+exactly once, for that hour and a half, and never again. This piece exists
+because that collaboration will likely never repeat: rather than wait for
+it, the artist took matters into his own hands and built a system that
+extends its visual identity toward infinity. It was not Yukimatsu's story
+alone that sparked the piece — it was the visual identity fused with the
+musical performance, a pairing that can no longer be, stretched here into
+a state space larger than the age of the universe.
+
+The project also began from a place of inability: the artist did not know
+how to operate TouchDesigner. The **Nous Research Hermes agent** and the
+**twozero MCP bridge** made the software reachable — AI agents as the
+hands, the human as the eye.
 
 ### The Central Research Question
 
@@ -99,7 +124,8 @@ either approach alone.
 
 ## 2. Methodology
 
-The system was built through a four-phase pipeline:
+The system was built through a five-phase pipeline — the last phase
+running live during the performance itself:
 
 ### Phase 1: Visual Identity Extraction via Computer Vision
 
@@ -141,7 +167,10 @@ model.
 faithfully reproduce the source material's visual identity. Then a second
 pass instructed the harness to produce 21 additional "mutation" effects
 inspired by the initial set — same visual DNA, new expressions. This doubled
-the visual vocabulary while maintaining aesthetic coherence.
+the visual vocabulary while maintaining aesthetic coherence. A third pass —
+90 derivative effects spun off from the full bank — was launched roughly an
+hour before the summit performance and completed while it was underway
+(see [Phase 5](#phase-5-live-expansion-during-the-performance)).
 
 ### Phase 4: AI-Agent-Driven TouchDesigner Construction
 
@@ -150,6 +179,17 @@ The Nous Research Hermes Agent, equipped with the TouchDesigner skill and
 bridge (JSON-RPC on `localhost:40404`). The initial 43 GLSL shaders, the 3-layer
 compositing chain, frequency-band prominence mapping, and aggressive
 auto-rotation logic were built programmatically without manual TD interaction.
+
+### Phase 5: Live Expansion During the Performance
+
+Roughly one hour before showtime at the AI Psychosis Summit, a final
+generation pass was launched: 90 derivative effects (`fx_g3_*`) spun off
+from the 43-effect bank. The generation and wiring ran for about an extra
+hour — **while the performance was underway**. The artist DJ'd; the
+computer built filters; the auto-rotate system, which counts connected
+router inputs at runtime, absorbed each new effect into the rotation the
+moment it was wired. The piece the audience saw at the start of the night
+and the piece they saw at the end were not the same instrument.
 
 ---
 
@@ -404,8 +444,8 @@ so vast it becomes practically infinite.
 **Discrete combinations.** The auto-rotate system selects 3 effects via
 `random.sample(range(N), 3)`, where N is counted live from the router's
 connected inputs. Since additive compositing is commutative
-(L1 + L2 + L3 = L3 + L1 + L2), the selection is unordered. As performed at
-the summit (N = 43):
+(L1 + L2 + L3 = L3 + L1 + L2), the selection is unordered. As the piece
+entered the summit (N = 43):
 
 > C(43, 3) = 43! / (3! × 40!) = **12,341** unique effect combinations
 
@@ -427,15 +467,18 @@ At 60 fps, that is ~2.61 × 10¹⁹ frames. To exhaust every state once:
 
 That is roughly **2.5 quintillion ages of the universe**.
 
-**The current production network.** The post-summit Gen3 expansion brings
-the wired effect count to 133, and the same math scales accordingly:
+**The full network.** By the end of the performance the live Gen3
+expansion had brought the wired effect count to 133, and the same math
+scales accordingly:
 
 > C(133, 3) = **383,306** unique effect combinations
 > 383,306 × 5.19 × 10³³ ≈ **2.0 × 10³⁹** instantaneous visual states
 > ≈ **7.6 × 10¹⁹ universe lifetimes** to exhaust at 60 fps
 
 The auto-rotate script counts connected router inputs at runtime, so the
-state space grows automatically every time a new effect is wired in.
+state space grows automatically every time a new effect is wired in — which
+is exactly what happened on stage: the universe of possible frames expanded
+by two orders of magnitude while the audience was inside it.
 
 ### What the Conservative Estimate Ignores
 
@@ -511,10 +554,12 @@ erased.
 | AI-generated Python effects | 21 | Claude-generated plugins |
 | Canonical Python effects | 2 | Cluster-derived plugins |
 
-The 43 summit-era GLSL effects (21 + 21 + 1) were the bank performed on
-April 30, 2026. The 90 Gen3 effects were generated and wired in afterwards
-(May 13, 2026) via `tools/td_build_gen3.py`, bringing the production
-network to 133 wired effects per router.
+The 43 core GLSL effects (21 + 21 + 1) were the bank the piece brought to
+the summit on April 30, 2026. The 90 Gen3 effects are derivatives of those
+43, generated via `tools/td_build_gen3.py` starting roughly an hour before
+showtime and wired in **while the performance was underway** — bringing the
+production network to 133 wired effects per router before the night ended.
+(The resulting `.toe` was committed to this repository on May 13, 2026.)
 
 ### Original GLSL Shaders (21)
 
@@ -573,9 +618,10 @@ network to 133 wired effects per router.
 Index 42 in the TD router. A vision-verified canonical effect derived
 from cluster analysis of the source video.
 
-### Gen3 Shaders (90, post-summit)
+### Gen3 Shaders (90, generated live at the summit)
 
-Added May 13, 2026 — a third generation focused on body-contour and
+Generated in the final hour before and during the April 30 performance —
+a third generation focused on body-contour and
 silhouette treatments (33 `body_*` effects: neon outlines, laser scans,
 holograms, x-ray/thermal/comic contours, kaleidoscope and starfield
 silhouettes) plus hybrid palette families (`arctic_*`, `blood_*`,

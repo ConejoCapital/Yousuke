@@ -177,11 +177,13 @@ of 1,871 frames from the source video. Full details in
 
 ---
 
-## Gen3 GLSL Shaders (90, post-summit)
+## Gen3 GLSL Shaders (90, generated live at the summit)
 
-Added May 13, 2026 via `tools/td_build_gen3.py` — a third generation
-expanding the bank from 43 to 133 wired effects (router indices 43-132).
-Three families:
+Generated via `tools/td_build_gen3.py` starting roughly an hour before the
+April 30, 2026 performance and wired in while it was underway — a third
+generation of derivatives expanding the bank from 43 to 133 wired effects
+(router indices 43-132) before the night ended. The resulting `.toe` was
+committed to the repository on May 13, 2026. Three families:
 
 **Body-contour & silhouette treatments (33)** — `fx_g3_body_*`:
 aura_glow, blueprint, comic_contour, cyberpunk_contour, double_edge,

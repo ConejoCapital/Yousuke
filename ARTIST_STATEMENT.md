@@ -16,15 +16,36 @@ viral around the world — a shirtless, sweat-drenched, genre-annihilating
 performance that tears through techno, breakbeat, ambient, and noise with
 total physical commitment.
 
-This piece is named after him. Not as appropriation of his music, but as a
-study of something harder to name: the *visual identity* of a live moment.
-The washed-out chiaroscuro, the magenta bloom swallowing a silhouette, the
+His story is inspiring on its own. But it is not, by itself, why this
+piece exists.
+
+What truly inspired me is one specific artifact:
+**¥ØU$UK€ ¥UK1MAT$U | Boiler Room Tokyo x Super Dommune — visuals by
+Bridge.** I consider it one of his best performances, paired with his best
+visuals — and it was a collaboration that happened exactly once. One hour,
+thirty-three minutes, thirty seconds. Yukimatsu and Bridge together, sound
+and image fused into a single identity, and then never again. I want that
+collaboration to happen again. It likely never will. So I took matters
+into my own hands: if the performance cannot be extended, its visual
+identity can be — studied, learned, and stretched toward infinity. The
+washed-out chiaroscuro, the magenta bloom swallowing a silhouette, the
 feedback tunnels, the crushed blacks out of which a figure barely emerges.
-The look of a room where someone is giving everything they have.
+The look of a room where someone is giving everything they have. This
+piece is the pursuit of a performance that can't be — extended into a
+state space that outlasts the age of the universe, the way I wish that
+night had.
 
 ## The Question
 
-I wanted to know: **can AI agents learn that?**
+There was one more starting condition, and it matters: **I did not know
+how to operate TouchDesigner.** What made the piece possible was Nous
+Research's Hermes agent and the twozero MCP bridge, which let AI agents
+reach into the software I couldn't drive myself. That was the moment of
+empowerment this whole project grew from — the tool I couldn't use became
+a tool an agent could use *for* me, and suddenly the only question left
+was whether we could learn the aesthetic.
+
+So I wanted to know: **can AI agents learn that?**
 
 Not "can AI make visuals" — obviously it can. The question was whether a
 team of AI agents could watch a recording of a human performance, extract
@@ -36,10 +57,23 @@ So the piece was built almost entirely by machines. Claude analyzed 1,871
 frames of the source set, clustered them into a canonical visual vocabulary,
 and wrote GLSL shaders to reproduce it. The Hermes agent assembled the
 TouchDesigner network — every operator, every wire — through an MCP bridge,
-without me touching the interface. When the first algorithmic analysis
-produced a vocabulary that was statistically accurate but aesthetically
-wrong, the fix wasn't more computation. It was me screenshotting the frames
-that *felt* right and handing them back to the machine.
+without me touching the interface.
+
+The first batch of filters the AI produced was bad. Statistically
+accurate, aesthetically wrong — a vocabulary that measured the source
+material without seeing it. But it gave me a general direction, and the
+fix wasn't more computation. It was me screenshotting the frames that
+*felt* right and handing them back to the machine. That iteration produced
+the 43 filters the piece carried into the summit.
+
+And then the process refused to stop. About an hour before showtime, I set
+the agents loose one more time — generating derivatives of those 43
+filters — and let them keep working *while I performed*. For roughly an
+extra hour, I DJ'd and the computer built filters, each new effect wired
+into the rotation the moment it existed, until the bank stood at 133. The
+instrument the audience saw at the start of the night was not the
+instrument they saw at the end. The curation never stopped, and neither
+did the generation.
 
 That became the real finding, and the real subject of the piece: the AI
 caught patterns I couldn't see, and I caught intent it couldn't feel.
