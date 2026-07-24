@@ -15,9 +15,10 @@
 >
 > **Why this piece exists: [ARTIST_STATEMENT.md](ARTIST_STATEMENT.md)**
 
-![Performance still, layered thermal composite](media/summit_thermal_composite.jpg)
+![The PSYCHOSIS SUMMIT title card rendered through the effect bank, live on the TouchDesigner timeline](media/summit_title_card.jpg)
 
-*Live at the AI Psychosis Summit, 93 Canal Street NYC, April 30, 2026.
+*The summit's own title card, eaten by the piece. Live at the AI
+Psychosis Summit, 93 Canal Street NYC, April 30, 2026.
 [Watch the performance.](https://www.youtube.com/watch?v=6kgnXu5pmf4)*
 
 ---
