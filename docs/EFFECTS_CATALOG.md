@@ -140,22 +140,33 @@ compositing.
 
 | Slot | TD Operator | Label | Source |
 |------|-------------|-------|--------|
-| 42 | `fx_canon_shards` | Canon Shards | Vision-verified canonical cluster |
+| 42 | `fx_canon_shards` | Canon Shards | Canonical #6, Pixel-Sort Radial Shards |
+
+Bright pixels extrude outward in crystalline wedges from the frame
+center, with centrifugal smearing and a magenta, white, and cobalt
+palette drawn from the source set's dominant colors. Wedge count scales
+with energy, shard length with onset transients, rim intensity with
+bass, and dust density with highs. The shader exists only inside the
+`.toe`; an extracted copy lives at `../touchdesigner/canon_shards.glsl`.
 
 ---
 
 ## Audio Channel Mapping — Prominence System
 
-Effects are assigned to frequency bands for dynamic opacity via the
-prominence levelTOP system:
+Verified against the live network. The core bank (slots 0-42) renders at
+full, constant opacity; each of those shaders carries its own internal
+audio reactivity. The Gen3 effects (slots 43-132) get audio-driven
+prominence via their levelTOPs, split evenly across the spectrum:
 
-| Band | Effect Slots | Opacity Expression |
-|------|-------------|-------------------|
-| Bass | 0-13 | `0.6 + bass * 0.4` |
-| Mids | 14-28 | `0.6 + mids * 0.4` |
-| Highs | 29-42 | `0.6 + highs * 0.4` |
+| Band | Gen3 effects | Opacity Expression |
+|------|--------------|--------------------|
+| Bass | 30 | `0.6 + bass * 0.4` |
+| Mids | 30 | `0.6 + mids * 0.4` |
+| Highs | 30 | `0.6 + highs * 0.4` |
 
-All effects additionally receive a beat flash: `brightness = 1.0 + beat * 0.3`.
+Each Gen3 effect also gets a beat flash: `brightness = 1.0 + beat * 0.3`.
+The final composite passes through `blend_level` (brightness 0.75,
+contrast 1.3, black level 0.05).
 
 ---
 

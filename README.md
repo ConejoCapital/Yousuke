@@ -413,16 +413,20 @@ script stays dormant and switching runs on the timer and the beat counter.
 
 ### Prominence System
 
-Effects are mapped to frequency bands for dynamic opacity:
+Verified against the live network: the 43 core effects render at full,
+constant opacity, and the 90 Gen3 effects carry the audio-driven
+prominence, split evenly across the spectrum (30 per band):
 
-| Band | Effect Indices | Behavior |
-|------|---------------|----------|
-| Bass | 0-13 | Opacity pulses with bass energy |
-| Mids | 14-28 | Opacity pulses with mid energy |
-| Highs | 29-42 | Opacity pulses with high-frequency energy |
+| Band | Gen3 effects | Behavior |
+|------|--------------|----------|
+| Bass | 30 | Opacity = 0.6 + bass × 0.4 |
+| Mids | 30 | Opacity = 0.6 + mids × 0.4 |
+| Highs | 30 | Opacity = 0.6 + highs × 0.4 |
 
-All effects receive a beat flash overlay that brightens momentarily on
-detected beats.
+Each Gen3 effect also gets a beat flash (brightness = 1 + beat × 0.3).
+The final composite passes through `blend_level` (brightness 0.75,
+contrast 1.3, black level 0.05) to keep the 3-layer additive sum from
+blowing out.
 
 ### Auto-Rotation
 
@@ -618,7 +622,12 @@ production network to 133 wired effects per router before the night ended.
 ### Additional Effect: Canon Shards
 
 Index 42 in the TD router. A vision-verified canonical effect derived
-from cluster analysis of the source video.
+from cluster analysis of the source video: "Canonical #6, Pixel-Sort
+Radial Shards." Bright pixels extrude outward in crystalline wedges from
+the frame center, with centrifugal smearing and a magenta, white, and
+cobalt palette taken from the source set's dominant colors. Its GLSL
+source lives only inside the `.toe`; an extracted copy is preserved at
+[touchdesigner/canon_shards.glsl](touchdesigner/canon_shards.glsl).
 
 ### Gen3 Shaders (90, generated live at the summit)
 

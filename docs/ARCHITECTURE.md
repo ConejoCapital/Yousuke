@@ -12,7 +12,7 @@ All operators live under `/project1/`.
 
 | Path | Type | Purpose |
 |------|------|---------|
-| `/project1/cam_in` | videodevinTOP | Camera input (1280x720). Supports MacBook Pro Camera, OBS Virtual Camera, iPhone USB (Bunphone Camera). Switch via `cam_in.par.device`. |
+| `/project1/cam_in` | videodeviceinTOP | Camera input (1280x720). Supports MacBook Pro Camera, OBS Virtual Camera, iPhone USB (Bunphone Camera). Switch via `cam_in.par.device`. |
 | `/project1/audio_in` | audiodeviceinCHOP | Default microphone / audio interface input |
 
 ### Audio Analysis
@@ -27,12 +27,12 @@ Internal analysis chain:
 - `mathCHOP` (gain=10) for spectrum normalization
 - `analyzeCHOP` for RMS extraction
 - `beatCHOP` for beat trigger detection
-- Band extraction via `selectCHOP` + range filters:
-  - `sub_bass`: 0-80 Hz
-  - `bass`: 80-300 Hz
-  - `mids`: 300-3000 Hz
-  - `highs`: 3000 Hz+
-- `mergeCHOP` combining all channels into `outCHOP`
+- `scriptCHOP` (`band_extract`) averaging spectrum bins into bands:
+  - `sub_bass`: 0-80 Hz (bin 0)
+  - `bass`: 80-300 Hz (bins 1-3)
+  - `mids`: 300-3000 Hz (bins 4-34)
+  - `highs`: 3000 Hz+ (bins 35-255)
+- `outCHOP` (`out1`) exposing the 6 channels
 
 ### Effect baseCOMPs (43 total)
 
@@ -42,7 +42,7 @@ Each effect follows the same internal structure:
 baseCOMP
 ├── in1 (inTOP)           # Camera feed input
 ├── glsl1 (glslTOP)       # Pixel shader
-├── prominence (levelTOP) # Audio-driven opacity + beat flash
+├── prominence (levelTOP) # Opacity control (audio-driven on Gen3, static on the core bank)
 └── out1 (outTOP)         # Output to router
 ```
 
@@ -104,11 +104,21 @@ baseCOMP
 |------|---------------|-------|
 | 42 | `fx_canon_shards` | Canon Shards |
 
+Canon Shards is "Canonical #6, Pixel-Sort Radial Shards" from the
+cluster analysis: bright pixels extrude outward in crystalline wedges
+with centrifugal smearing, in the source set's magenta, white, and
+cobalt palette. Its shader exists only inside the `.toe`; an extracted
+copy is kept at `touchdesigner/canon_shards.glsl`.
+
+**Gen3 (slots 43-132):** the 90 `fx_g3_*` derivatives generated live
+during the summit performance, catalogued in
+[EFFECTS_CATALOG.md](EFFECTS_CATALOG.md).
+
 ### 3-Layer Compositing Chain
 
 ```
 effect_router (switchTOP, 133 inputs) ─┐
-                                        ├── blend_add1 (compositetTOP, add mode)
+                                        ├── blend_add1 (compositeTOP, add mode)
 layer2_router (switchTOP, 133 inputs) ─┘
                                               │
 layer3_router (switchTOP, 133 inputs) ────── blend_add2 (compositeTOP, add mode)
@@ -132,7 +142,7 @@ always a layered composite of three independent visual streams.
 |------|------|---------|
 | `/project1/active_effect` | constantCHOP | Stores current state: `par.value0` = effect index, `par.value1` = auto-rotate toggle |
 | `/project1/auto_rotate` | chopexecuteDAT | Auto-advance logic using `whileOn` callback (fires every frame). Switches on 1.5s interval or 5-beat threshold. |
-| `/project1/keyboard_control` | keyboardinDAT | `focusselect='anywhere'`. Maps keys 0-9 to effect selection, Space to cycle. |
+| `/project1/keyboard_control` | keyboardinDAT | `focusselect='anywhere'`. `0` toggles auto-rotate, `1-9` locks to that effect, `Space`/`→` next, `←` previous, `B` toggles the blend mode switch, `Esc` closes the output window. |
 
 ---
 
@@ -182,13 +192,20 @@ Each shader's `main()` function:
 
 ### Prominence levelTOP
 
-Inserted between `glsl1` and `out1` in each baseCOMP:
+Every effect baseCOMP contains a `prominence` levelTOP between the GLSL
+TOP and `out1`. Verified against the live network:
 
-- **Opacity**: `0.6 + <band_channel> * 0.4` (expression mode)
-  - Effects 0-13: bass-driven
-  - Effects 14-28: mids-driven
-  - Effects 29-42: highs-driven
-- **Brightness**: `1.0 + beat * 0.3` (30% beat flash)
+- **Core bank (indices 0-42)**: static, opacity 1.0, brightness 1.0.
+  These effects render at full strength and rely on their own
+  shader-internal audio reactivity.
+- **Gen3 (indices 43-132)**: audio-driven, split evenly across the
+  spectrum, 30 effects per band:
+  - Opacity: `0.6 + <band> * 0.4` where band is `bass`, `mids`, or
+    `highs` from `audio_analysis/out1`
+  - Brightness: `1.0 + beat * 0.3` (30% beat flash)
+- **blend_level (final output)**: brightness 0.75, contrast 1.3, black
+  level 0.05. This is what keeps the 3-layer additive sum from blowing
+  out to white.
 
 ---
 
