@@ -1,7 +1,7 @@
 # Artist Statement: YOUSUKE
 
-*Mauricio "Bunny" Trujillo. Performed live at the AI Psychosis Summit,
-93 Canal Street, New York City, April 30, 2026.*
+*Mauricio Trujillo Ramirez, aka Bunny. Performed live at the AI Psychosis
+Summit, 93 Canal Street, New York City, April 30, 2026.*
 
 ---
 

@@ -787,6 +787,7 @@ Yousuke/
 │
 ├── touchdesigner/
 │   ├── AIPSummitYousuke.36.toe        # The piece: production TD network
+│   ├── canon_shards.glsl              # Canon Shards shader, extracted from the .toe
 │   └── README_FOR_HERMES.md           # Hermes TD build instructions
 │
 ├── standalone/
@@ -909,11 +910,16 @@ python3 -m venv .venv
 
 ## 11. Acknowledgments
 
-Built by **Mauricio "Bunny" Trujillo**
+Built by **Mauricio Trujillo Ramirez aka Bunny**
 ([@ConejoCapital](https://x.com/ConejoCapital)), cofounder of **Tektonic
 Company** ([@TektonicCompany](https://x.com/TektonicCompany)): "We build
 intelligent systems and onchain infrastructure for teams pushing the
 frontier."
+
+The AI Psychosis Summit was created together with cofounders
+**Quasimatt** ([@quasimatt](https://x.com/quasimatt)),
+**Wesam** ([@wesamo__](https://x.com/wesamo__)), and
+**Macy Gettles** ([@gettles](https://x.com/gettles)).
 
 Special thanks to **SHL0MS** ([@SHL0MS](https://x.com/SHL0MS)).
 
@@ -934,4 +940,4 @@ Powered by **Claude Opus 4.7** (Anthropic) for AI effect generation.
 
 [MIT](LICENSE)
 
-Copyright (c) 2026 Mauricio "Bunny" Trujillo / Tektonic Company
+Copyright (c) 2026 Mauricio Trujillo Ramirez / Tektonic Company
