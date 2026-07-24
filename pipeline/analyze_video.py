@@ -87,8 +87,6 @@ def preflight_check(video_path: Path, clusters: int) -> dict:
     duration    = total_frames / fps
     cap.release()
 
-    # Estimate n frames to sample
-    n_sampled = max(1, int(duration / 10))  # using default interval=10; will be recomputed
     estimates["fps"]          = fps
     estimates["total_frames"] = total_frames
     estimates["duration_s"]   = duration

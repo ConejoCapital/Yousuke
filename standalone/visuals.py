@@ -3,11 +3,11 @@
 ¥ØUSUK€ Visual Extender — Python Standalone Visual Engine
 AI Psychosis Summit NYC | April 30, 2026
 
-Usage:
-    python visuals.py --mode webcam --audio mic
-    python visuals.py --mode webcam --audio reference/audio.mp3
-    python visuals.py --mode file   --audio reference/audio.mp3
-    python visuals.py --mode window --audio mic
+Usage (from the repo root):
+    python standalone/visuals.py --mode webcam --audio mic
+    python standalone/visuals.py --mode webcam --audio reference/audio.mp3
+    python standalone/visuals.py --mode file   --audio reference/audio.mp3
+    python standalone/visuals.py --mode window --audio mic
 
 Keyboard:
     1-9     Lock to effect (supports >8 if plugins loaded)

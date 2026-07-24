@@ -77,6 +77,3 @@ void main() {
 
     fragColor = TDOutputSwizzle(vec4(clamp(outC, 0.0, 2.0), 1.0));
 }
-
-
-[fps 60.0/60] [0 err/0 warn]

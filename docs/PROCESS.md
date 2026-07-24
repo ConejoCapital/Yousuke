@@ -31,7 +31,7 @@ The central research question:
 > identity?
 
 The subject: YOUSUKE YUKIMATSU's Boiler Room Tokyo x Super Dommune set
-— a 93-minute live performance whose visuals (by Bridge) define a specific
+— a 93.5-minute live performance whose visuals (by Bridge) define a specific
 aesthetic language. The goal was not to build generic audio-reactive
 visuals, but to capture *this particular artist's* visual identity and
 extend it.
@@ -129,7 +129,7 @@ effective 85 FPS — well within the 33.3ms budget for 30 FPS.
 visual language. It operates in 5 stages:
 
 1. **Frame sampling** — Seek to every 3 seconds, extract 1,871 frames
-   from the 93-minute set
+   from the 93.5-minute set
 2. **Feature extraction** — Per frame: 19-float vector (15 dominant color
    floats via k-means on 64x64, edge density, brightness, saturation
    mean, color variance)
@@ -300,9 +300,11 @@ communicate with TD via the MCP bridge:
    `layer2_router` and `layer3_router` for the 3-layer compositing chain.
 
 4. **`td_add_prominence.py`** — Inserts a `levelTOP` named "prominence"
-   between the glslTOP and outTOP inside each baseCOMP. Sets opacity to a
-   frequency-band expression (bass for 0-13, mids for 14-28, highs for
-   29-42) and brightness to a beat flash expression (+30% on beat detect).
+   between the glslTOP and outTOP inside each baseCOMP, with a
+   frequency-band opacity expression and a beat flash expression (+30%
+   on beat detect). (In the final production network the core 43 sit at
+   full static opacity; the band-driven prominence lives on the 90 Gen3
+   effects, 30 per band. See ARCHITECTURE.md for the verified state.)
 
 5. **`td_update_rotation.py`** — Writes the auto-rotate chopexecuteDAT
    script with aggressive parameters: 1.5s switch interval, 5-beat

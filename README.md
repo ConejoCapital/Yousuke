@@ -100,7 +100,7 @@ it, the artist took matters into his own hands and built a system that
 extends its visual identity toward infinity. It was not Yukimatsu's story
 alone that sparked the piece. It was the visual identity fused with the
 musical performance, a pairing that can no longer be, stretched here into
-a state space larger than the age of the universe.
+a state space that would take ages of the universe to exhaust.
 
 The project also began from a place of inability: the artist did not know
 how to operate TouchDesigner. The **Nous Research Hermes agent** and the
@@ -197,59 +197,63 @@ and the piece they saw at the end were not the same instrument.
 ### High-Level Signal Flow
 
 ```
- AUDIO INPUT                    VIDEO INPUT
- ┌──────────────┐               ┌──────────────────┐
- │ Live Mic /   │               │ Webcam / OBS /   │
- │ DJ Interface │               │ iPhone USB /     │
- │ Audio File   │               │ Video File       │
- └──────┬───────┘               └────────┬─────────┘
-        │                                │
-        ▼                                ▼
- ┌──────────────────┐           ┌──────────────────┐
- │ FEATURE EXTRACT  │           │  cam_in (1280x720)│
- │ RMS, sub_bass,   │           └────────┬─────────┘
- │ bass, mids,      │                    │
- │ highs, beat,     │                    │
- │ onset            │                    │
- └──────┬───────────┘                    │
-        │         ┌──────────────────────┘
-        │         │
-        ▼         ▼
+ AUDIO INPUT                   VIDEO INPUT
+ ┌───────────────────┐         ┌───────────────────┐
+ │ Live Mic /        │         │ Webcam / OBS /    │
+ │ DJ Interface /    │         │ iPhone via USB    │
+ │ Audio File        │         │                   │
+ └───────────────────┘         └───────────────────┘
+           │                             │
+           ▼                             ▼
+ ┌───────────────────┐         ┌───────────────────┐
+ │ FEATURE EXTRACT   │         │ cam_in (1280x720) │
+ │ rms, sub_bass,    │         └───────────────────┘
+ │ bass, mids,       │                   │
+ │ highs, beat,      │                   │
+ │ onset (Python)    │                   │
+ └───────────────────┘                   │
+           │                             │
+           └──────────────┬──────────────┘
+                          ▼
  ┌─────────────────────────────────────────────────┐
- │             EFFECT ENGINE (133 GLSL shaders)     │
- │                                                  │
- │  Each shader receives: camera texture + uAudio   │
- │  uAudio  = (time, rms, bass, sub_bass)           │
- │  uAudio2 = (sub_bass, mids, highs, beat)         │
- └──────────────────────┬──────────────────────────┘
-                        │
-                        ▼
- ┌─────────────────────────────────────────────────┐
- │           3-LAYER COMPOSITING                    │
- │                                                  │
- │  effect_router ──┐                               │
- │  layer2_router ──┼── blend_add1 ──┐              │
- │  layer3_router ──┘   blend_add2 ──┼── blend_level│
- │                                   │    → output  │
- │  (3 random effects composited)    │              │
+ │         EFFECT ENGINE (133 GLSL shaders)        │
+ │                                                 │
+ │ Each shader receives the camera texture plus:   │
+ │ uAudio  = (time, rms, bass, sub_bass)           │
+ │ uAudio2 = (sub_bass, mids, highs, beat)         │
  └─────────────────────────────────────────────────┘
-                        │
-                        ▼
-                 ┌──────────────┐
-                 │ main_output  │
-                 │ (1280x720)   │
-                 └──────────────┘
+                          ▼
+ ┌─────────────────────────────────────────────────┐
+ │               3-LAYER COMPOSITING               │
+ │                                                 │
+ │ effect_router ─┐                                │
+ │ layer2_router ─┼─ blend_add1 ─┐                 │
+ │ layer3_router ─┘  blend_add2 ─┴─ blend_level    │
+ │                                                 │
+ │ 3 effects picked at random, added together,     │
+ │ re-picked every few beats; each layer drifts    │
+ │ through a chaos transform and HSV shift         │
+ └─────────────────────────────────────────────────┘
+                          ▼
+                 ┌─────────────────┐
+                 │ main_output     │
+                 │ (1280x720)      │
+                 └─────────────────┘
 ```
 
 ### TouchDesigner Signal Flow
 
 The TD network uses a 3-layer compositing architecture where three
 independent `switchTOP` routers (`effect_router`, `layer2_router`,
-`layer3_router`) each select from the same bank of 133 effects. These are
-blended additively through `blend_add1` and `blend_add2`, then passed
-through `blend_level` for final output scaling. The auto-rotate system
-randomly selects 3 different effects per switch event, so the output is
-always a layered composite of three independent visual streams.
+`layer3_router`) each select from the same bank of 133 effects. Each
+layer passes through a Chaos Engine stage (a transform and an HSV shift,
+set programmatically) so the three streams drift apart in color and
+position, then the layers are blended additively through `blend_add1`
+and `blend_add2` and scaled by `blend_level` for final output. The
+auto-rotate system randomly selects 3 different effects per switch
+event, so the output is always a layered composite of three independent
+visual streams. The full operator-level chain is documented in
+[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ### Python Standalone Signal Flow
 
@@ -456,8 +460,8 @@ entered the summit (N = 43):
 
 > C(43, 3) = 43! / (3! × 40!) = **12,341** unique effect combinations
 
-**Continuous audio state.** Each of the 7 audio parameters (`rms`,
-`sub_bass`, `bass`, `mids`, `highs`, `beat`, `onset`) varies continuously in
+**Continuous audio state.** The system's 7 audio parameters (`rms`,
+`sub_bass`, `bass`, `mids`, `highs`, `beat`, `onset`) each vary in
 [0, 1]. At a conservative 16-bit discretization (65,536 levels per
 parameter):
 
@@ -481,6 +485,16 @@ scales accordingly:
 > C(133, 3) = **383,306** unique effect combinations
 > 383,306 × 5.19 × 10³³ ≈ **2.0 × 10³⁹** instantaneous visual states
 > ≈ **7.6 × 10¹⁹ universe lifetimes** to exhaust at 60 fps
+
+**The strict accounting.** A careful reader will notice two objections:
+the TouchDesigner network exposes six audio channels, not seven
+(`onset` lives in the Python engine), and `beat` is a trigger, not a
+continuum. Redo the math under those constraints. Five continuous
+channels at 16-bit depth and a binary beat give 65,536⁵ × 2 ≈ 2.4 × 10²⁴
+audio states; times 12,341 combinations that is ≈ 3.0 × 10²⁸ states as
+the piece entered the summit, and ≈ 9.3 × 10²⁹ at 133 effects. Even the
+strictest figure takes over a billion ages of the universe to exhaust
+at 60 fps. The claim survives its own audit.
 
 The auto-rotate script counts connected router inputs at runtime, so the
 state space grows automatically every time a new effect is wired in. That
@@ -639,7 +653,7 @@ silhouettes) plus hybrid palette families (`arctic_*`, `blood_*`,
 `cyber_*`, `ocean_*`, `pastel_*`, `fire_*`) and intensified variants
 (`extreme_*`, `hyper_*`, `mega_*`, `turbo_*`, `ultra_*`) recombining the
 original effect DNA: datamosh, kaleido, plasma, solarize, strobe, echo,
-shatter, and matrix elements. All 90 live at router indices 43–132.
+shatter, and matrix elements. All 90 live at router indices 43-132.
 
 Full effect reference with audio mappings, generation methods, and
 performance data: [docs/EFFECTS_CATALOG.md](docs/EFFECTS_CATALOG.md)

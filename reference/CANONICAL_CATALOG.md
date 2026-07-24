@@ -1,5 +1,5 @@
 # Canonical Effects — Vision-Verified Catalog
-## Source: ¥ØUSUK€ ¥UK1MAT$U — Boiler Room Tokyo × Super Dommune (93.5 min)
+## Source: ¥ØU$UK€ ¥UK1MAT$U — Boiler Room Tokyo × Super Dommune (93.5 min)
 
 **Analysis date:** 2026-04-28
 **Method:** Download 720p25 → k-means(k=40, 19-feature, 3s interval) on 1,871 frames → supertype dedup → vision audit of representative frames → manual canonical consolidation

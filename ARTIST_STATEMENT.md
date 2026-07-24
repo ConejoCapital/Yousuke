@@ -11,8 +11,8 @@ In 2016 a construction worker in Osaka named Yousuke Yukimatsu was
 diagnosed with a malignant brain tumor. He survived two surgeries,
 chemotherapy, and radiation. When he came out the other side he quit
 construction and went all in on the thing that made him feel alive:
-DJing. Years in Japan's underground scene later, his Boiler Room Tokyo
-set went viral around the world. Shirtless, sweat drenched, tearing
+DJing. After years in Japan's underground scene, his Boiler Room Tokyo
+set went viral around the world. Shirtless, sweat-drenched, tearing
 through techno, breakbeat, ambient, and noise with total physical
 commitment.
 
@@ -22,8 +22,8 @@ piece exists.
 What truly inspired me is one specific artifact:
 **¥ØU$UK€ ¥UK1MAT$U | Boiler Room Tokyo x Super Dommune, visuals by
 Bridge.** I consider it one of his best performances paired with his best
-visuals, and that collaboration happened exactly once. One hour, thirty
-three minutes, thirty seconds. Yukimatsu and Bridge together, sound and
+visuals, and that collaboration happened exactly once. One hour,
+thirty-three minutes, thirty seconds. Yukimatsu and Bridge together, sound and
 image fused into a single identity, and then never again. I want that
 collaboration to happen again. It probably never will. So I took matters
 into my own hands. If the performance cannot be extended, its visual
@@ -31,8 +31,8 @@ identity can be. The washed out chiaroscuro. The magenta bloom swallowing
 a silhouette. The feedback tunnels. The crushed blacks where a figure
 barely emerges. The look of a room where someone is giving everything
 they have. This piece is my pursuit of a performance that cannot be,
-stretched into a state space that outlasts the age of the universe, the
-way I wish that night had.
+stretched into a state space that would take ages of the universe to
+exhaust, the way I wish that night had been stretched.
 
 ## The Question
 

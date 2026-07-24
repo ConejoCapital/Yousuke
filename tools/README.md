@@ -15,15 +15,29 @@ twozero MCP bridge.
 
 ## Script Reference
 
-### Current (Active)
+### Effect bank builders
 
 | Script | Purpose | Usage |
 |--------|---------|-------|
-| `td_build_effects.py` | Build 21 original GLSL effects as baseCOMPs | `python tools/td_build_effects.py` |
-| `td_build_mutations.py` | Build 21 mutation GLSL effects as baseCOMPs | `python tools/td_build_mutations.py` |
-| `td_wire_all.py` | Wire all effects to 3-router topology | `python tools/td_wire_all.py` |
+| `td_build_effects.py` | Build the 21 original GLSL effects as baseCOMPs | `python tools/td_build_effects.py` |
+| `td_build_mutations.py` | Build the 21 mutation GLSL effects | `python tools/td_build_mutations.py` |
+| `td_build_gen3.py` | Build 57 Gen3 effects (originals, palette swaps, intensity mutations) | `python tools/td_build_gen3.py` |
+| `td_build_contour.py` | Build the 33 Gen3 body-contour and silhouette effects | `python tools/td_build_contour.py` |
+| `td_build_chaos.py` | Build the Chaos Engine variant (per-layer transform + HSV drift) | `python tools/td_build_chaos.py` |
+
+### Wiring and configuration
+
+| Script | Purpose | Usage |
+|--------|---------|-------|
+| `td_wire_all.py` | Wire all effects to the 3-router topology | `python tools/td_wire_all.py` |
+| `td_wire_everything.py` | Wire the complete network in one pass | `python tools/td_wire_everything.py` |
+| `td_wire_effects.py` | Wire individual effects | `python tools/td_wire_effects.py` |
+| `td_wire_contour.py` | Wire the contour effects | `python tools/td_wire_contour.py` |
 | `td_add_prominence.py` | Insert audio-driven levelTOPs (opacity + beat flash) | `python tools/td_add_prominence.py` |
-| `td_update_rotation.py` | Write aggressive random 3-layer auto-rotate script | `python tools/td_update_rotation.py` |
+| `td_add_web_input.py` | Add web input sources | `python tools/td_add_web_input.py` |
+| `td_update_rotation.py` | Write the aggressive random 3-layer auto-rotate script | `python tools/td_update_rotation.py` |
+| `td_fix_rotation.py` | Repair rotation parameters | `python tools/td_fix_rotation.py` |
+| `chaos_engine_script.py` | Chaos Engine runtime script (drives the chaos transform/HSV drift) | installed into TD by `td_build_chaos.py` |
 | `td_mcp.py` | Minimal MCP bridge helper (import as library) | `from tools.td_mcp import td_call` |
 
 ### Utilities
@@ -40,16 +54,18 @@ twozero MCP bridge.
 
 ## Build Order
 
-To construct the full TD network from scratch:
+To reconstruct the full 133-effect network from scratch:
 
 ```bash
-# 1. Build original effects
-python tools/td_build_effects.py
+# 1. Build the core bank
+python tools/td_build_effects.py      # 21 originals
+python tools/td_build_mutations.py    # 21 mutations
 
-# 2. Build mutation effects
-python tools/td_build_mutations.py
+# 2. Build the Gen3 expansion
+python tools/td_build_gen3.py         # 57 Gen3 effects
+python tools/td_build_contour.py      # 33 body-contour effects
 
-# 3. Wire all effects to the 3-router topology
+# 3. Wire everything to the 3-router topology
 python tools/td_wire_all.py
 
 # 4. Add audio-driven prominence (opacity + beat flash)

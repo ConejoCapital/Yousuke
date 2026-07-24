@@ -1,3 +1,7 @@
+> **HISTORICAL SNAPSHOT (April 28, 2026).** This report describes the
+> test suite as it stood during Phase B, before the effect bank grew.
+> The suite now holds 234 tests. Current documentation: [README.md](../README.md).
+
 # Phase B Report — Test Scaffold + Engine Hardening
 **Apr 28, 2026**
 

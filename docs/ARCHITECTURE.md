@@ -116,25 +116,40 @@ during the summit performance, catalogued in
 
 ### 3-Layer Compositing Chain
 
+The full output chain, verified against the live network:
+
 ```
-effect_router (switchTOP, 133 inputs) ─┐
-                                        ├── blend_add1 (compositeTOP, add mode)
-layer2_router (switchTOP, 133 inputs) ─┘
-                                              │
-layer3_router (switchTOP, 133 inputs) ────── blend_add2 (compositeTOP, add mode)
-                                              │
-                                        blend_level (levelTOP, output scaling)
-                                              │
-                                        main_output (windowCOMP, 1280x720)
+effect_router (switchTOP, 133 inputs)
+  └─ chaos_xform1 (transformTOP) ─ chaos_hsv1 (hsvadjustTOP)      [layer 1]
+
+layer2_router (switchTOP, 133 inputs)
+  └─ layer2_opacity (levelTOP, ~0.32) ─ chaos_xform2 ─ chaos_hsv2 [layer 2]
+
+layer3_router (switchTOP, 133 inputs)
+  └─ layer3_opacity (levelTOP, ~0.29) ─ chaos_xform3 ─ chaos_hsv3 [layer 3]
+
+blend_add1 (addTOP)        layer 1 + layer 2
+blend_add2 (addTOP)        blend_add1 + layer 3
+blend_level (levelTOP)     brightness 0.75, contrast 1.3, black level 0.05
+blend_mode_switch (switchTOP)  blend-mode toggle, bound to the B key
+router_out (nullTOP)       final composite
+main_output (windowCOMP)   opens router_out as a 1280x720 window
 ```
 
-All three routers have the same 133 effects wired (indices 0–42 are the
-core bank documented in the tables above; 43–132 are the Gen3 derivatives,
-`fx_g3_*`, generated live during the summit performance). The
-auto-rotate system counts connected inputs at
-runtime and picks 3 different random effects per switch event using
-`random.sample(range(N), 3)`, assigning one to each router. The result is
-always a layered composite of three independent visual streams.
+All three routers have the same 133 effects wired (indices 0-42 are the
+core bank documented in the tables above; 43-132 are the Gen3
+derivatives, `fx_g3_*`, generated live during the summit performance).
+The auto-rotate system counts connected inputs at runtime and picks 3
+different random effects per switch event using
+`random.sample(range(N), 3)`, assigning one to each router. The result
+is always a layered composite of three independent visual streams.
+
+Layer 1 runs at full strength; layers 2 and 3 are trimmed by their
+opacity levelTOPs so the additive sum stays readable. Each layer then
+passes through a Chaos Engine stage: a transformTOP and an hsvadjustTOP
+whose translation, hue offset, saturation, and value parameters are set
+programmatically (`tools/chaos_engine_script.py`), so the three streams
+drift apart in color and position even when showing the same effect.
 
 ### Control Layer
 
@@ -228,17 +243,17 @@ audio_in (audiodeviceinCHOP)
     ├── beatCHOP → beat trigger channel
     │
     ├── scriptCHOP (band_extract) → band averaging
-    │     sub_bass: 0-80 Hz    (bin 0)
-    │     bass:     80-300 Hz  (bins 1-3)
+    │     sub_bass: 0-80 Hz     (bin 0)
+    │     bass:     80-300 Hz   (bins 1-3)
     │     mids:     300-3000 Hz (bins 4-34)
-    │     highs:    3000+ Hz   (bins 35-255)
+    │     highs:    3000+ Hz    (bins 35-255)
     │
     └── outCHOP (out1)
           Channels: rms, sub_bass, bass, mids, highs, beat
           All normalized to [0, 1]
 ```
 
-Note: the TD path exposes 6 channels — there is no `onset` channel in the
+Note: the TD path exposes 6 channels; there is no `onset` channel in the
 TD network. The `onset` parameter exists only in the Python standalone's
 `AudioFeatures`. The onset-trigger branch in the TD `auto_rotate` script
 guards against the missing channel and is dormant; TD switching is driven

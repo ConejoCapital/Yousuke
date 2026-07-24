@@ -118,6 +118,8 @@ Archived (have banners):
 - `docs/SUMMIT_README.md` — April 30 day-of-show runbook
 - `touchdesigner/README_FOR_HERMES.md` — Manual Hermes build prompts
 
-Historical reference (no banners, accurate for their era):
+Historical reference (banner added, accurate for its era):
 - `docs/PHASE_B_REPORT.md` — Phase B test report (96 tests at that time)
-- `docs/EFFECTS_CATALOG.md` — Full effect catalog
+
+Current reference (not archived):
+- `docs/EFFECTS_CATALOG.md` — Full effect catalog for the 133-effect system

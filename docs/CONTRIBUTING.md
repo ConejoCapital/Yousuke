@@ -44,7 +44,7 @@ def fx_function(frame: np.ndarray, af, state: dict) -> np.ndarray:
 
 - Output shape must equal input shape.
 - Do not mutate the input `frame` — copy it first if modifying in place.
-- Keep per-frame time under 16ms at 1280x720 (30 FPS budget).
+- Keep per-frame time under 16 ms at 1280x720, about half the 33.3 ms budget at 30 FPS.
 - Use `state` for temporal effects (particles, feedback, trails). Do not
   use module-level globals.
 - Files starting with `_` are skipped by the loader.

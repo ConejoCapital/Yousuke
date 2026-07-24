@@ -144,7 +144,6 @@ def build_prompt(args, prior_error: Optional[str] = None,
 
     # ── Determine mode and build user content ──
     if args.from_frame:
-        t0 = time.time()
         print(f"  Reading image: {args.from_frame}")
         with open(args.from_frame, "rb") as f:
             img_bytes = f.read()
